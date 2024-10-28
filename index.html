@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Exercise</title>
+    <script src="js/memory.js" type="module"></script>
+</head>
+
+<body>
+    <form>
+        <fieldset id="painel-palavras"></fieldset>
+
+        <fieldset>
+            <button type="button" id="botao-iniciar">Iniciar</button>
+
+            <label>Quantidade:</label>
+            <select id="seletor-quantidade">
+                <option value="10">10 palavras</option>
+                <option value="12">12 palavras</option>
+                <option value="14">14 palavras</option>
+                <option value="16">16 palavras</option>
+                <option value="18">18 palavras</option>
+                <option value="20">20 palavras</option>
+            </select>
+
+            <label>Tempo:</label>
+            <select id="seletor-tempo">
+                <option value="02:00">2 minutos</option>
+                <option value="01:00">1 minuto</option>
+                <option value="00:30">30 segundos</option>
+            </select>
+
+            <output id="output-tempo">02:00</output>
+
+            <button type="button" id="botao-cancelar">Cancelar</button>
+        </fieldset>
+
+        <fieldset id="painel-inferior">
+            <label>Digite aqui as palavras lembradas:</label>
+            <input type="text" id="palavra-lembrada">
+            <button type="button" id="botao-inserir">Inserir</button>
+            <select id="lista-lembradas" multiple></select>
+            <button type="button" id="botao-remover-selecionadas">Remover Selecionada(s)</button>
+        </fieldset>
+    </form>
+</body>
+
+</html>
