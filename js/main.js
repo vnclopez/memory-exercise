@@ -27,20 +27,19 @@ window.onload = () => {
     controles.palavraLembrada.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
 
-    controles.botaoCancelar.disabled = true;
+    habilitarElementos(false, controles.botaoCancelar);
     controles.painelInferior.style.display = "none";
     controles.palavraLembrada.value = "";
     selecionarTempo(controles);
 };
 
 function exibirPalavras(controles, auxiliar) {
-
-    controles.botaoCancelar.disabled = false;
+    habilitarElementos(true, controles.botaoCancelar);
     habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
 
     if (controles.botaoIniciar.innerHTML === "Iniciar") {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
-        auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
+        auxiliar.timer = window.setInterval(marcarTempo, 10, controles, auxiliar);
     } else {
         controles.botaoIniciar.innerHTML = "Iniciar";
         controles.botaoCancelar.innerHTML = "Limpar";
@@ -53,14 +52,10 @@ function exibirPalavras(controles, auxiliar) {
 
 function limparPainel(controles, auxiliar) {
     controles.painelPalavras.innerHTML = "";
-    controles.botaoCancelar.disabled = true;
+    habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.innerHTML = "Iniciar";
-    controles.botaoIniciar.disabled = false;
-    controles.seletorTempo.disabled = false;
-    controles.seletorQuantidade.disabled = false;
-    controles.palavraLembrada.disabled = false;
-    controles.botaoInserir.disabled = false;
-    controles.botaoRemoverSelecionadas.disabled = false;
+    habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada, controles.botaoInserir,
+        controles.botaoRemoverSelecionadas);
 
     if (controles.botaoCancelar.innerHTML === "Limpar") {
         controles.botaoCancelar.innerHTML = "Cancelar";
@@ -87,9 +82,9 @@ function marcarTempo(controles, auxiliar) {
     controles.outputTempo.innerHTML = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
     if (controles.outputTempo.innerHTML === "00:00") {
-        window.clearInterval(auxiliar.timer);
-        controles.botaoIniciar.disabled = false;
-        controles.botaoCancelar.disabled = true;
+        window.clearInterval(auxiliar.timer);        
+        habilitarElementos(true, controles.botaoIniciar);        
+        habilitarElementos(false, controles.botaoCancelar);
         controles.painelPalavras.innerHTML = "";
         controles.botaoIniciar.innerHTML = "Conferir";
         controles.listaLembradas.size = controles.seletorQuantidade.value;
