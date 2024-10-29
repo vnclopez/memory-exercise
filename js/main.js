@@ -20,7 +20,7 @@ window.onload = () => {
         escolhidas: null
     };
 
-    controles.botaoIniciar.onclick = () => exibirPalavras(controles, auxiliar);
+    controles.botaoIniciar.onclick = () => realizarExibicaoPalavras(controles, auxiliar);
     controles.botaoCancelar.onclick = () => limparPainel(controles, auxiliar);
     controles.seletorTempo.oninput = () => selecionarTempo(controles);
     controles.botaoInserir.onclick = () => inserirPalavra(controles);
@@ -33,39 +33,49 @@ window.onload = () => {
     selecionarTempo(controles);
 };
 
-function exibirPalavras(controles, auxiliar) {
+function realizarExibicaoPalavras(controles, auxiliar) {
     habilitarElementos(true, controles.botaoCancelar);
     habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
 
     if (controles.botaoIniciar.innerHTML === "Iniciar") {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
         auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
-        gerarExibicaoPalavras(controles, auxiliar);
+        gerarElementosDeExibicaoPalavras(controles, auxiliar);
     } else {
         controles.botaoIniciar.innerHTML = "Iniciar";
         controles.botaoCancelar.innerHTML = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas, controles.botaoRemoverSelecionadas);
         controles.listaLembradas.selectedIndex = -1;
     }
-    controles.painelPalavras.style.display = "block";
+    exibirPalavras(true, controles);
 }
 
-function gerarExibicaoPalavras(controles, auxiliar) {
+function gerarElementosDeExibicaoPalavras(controles, auxiliar) {
     let escolhidas = auxiliar.escolhidas;
+    let painelPalavras = controles.painelPalavras;
 
-    while (controles.painelPalavras.hasChildNodes()) {
-        controles.painelPalavras.removeChild(controles.painelPalavras.firstChild);
+    while (painelPalavras.hasChildNodes()) {
+        painelPalavras.removeChild(painelPalavras.firstChild);
     }
 
     for (let i = 0; i < escolhidas.length; i++) {
         let newOutput = document.createElement("output");
         newOutput.textContent = escolhidas[i];
-        controles.painelPalavras.appendChild(newOutput);
+        newOutput.style.visibility = "hidden";
+        painelPalavras.appendChild(newOutput);
+    }
+}
+
+function exibirPalavras(visivel, controles) {
+    let outputs = controles.painelPalavras.children;
+
+    for (let output of outputs) {
+        output.style.visibility = (visivel) ? "visible" : "hidden";
     }
 }
 
 function limparPainel(controles, auxiliar) {
-    controles.painelPalavras.style.display = "none";
+    exibirPalavras(false, controles);
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.innerHTML = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
@@ -99,7 +109,7 @@ function marcarTempo(controles, auxiliar) {
         window.clearInterval(auxiliar.timer);
         habilitarElementos(true, controles.botaoIniciar);
         habilitarElementos(false, controles.botaoCancelar);
-        controles.painelPalavras.style.display = "none";
+        exibirPalavras(false, controles);
         controles.botaoIniciar.innerHTML = "Conferir";
         controles.listaLembradas.size = controles.seletorQuantidade.value;
         controles.painelInferior.style.display = "block";
