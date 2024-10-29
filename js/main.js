@@ -54,8 +54,8 @@ function limparPainel(controles, auxiliar) {
     controles.painelPalavras.innerHTML = "";
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.innerHTML = "Iniciar";
-    habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada, controles.botaoInserir,
-        controles.botaoRemoverSelecionadas);
+    habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
+        controles.botaoInserir, controles.botaoRemoverSelecionadas);
 
     if (controles.botaoCancelar.innerHTML === "Limpar") {
         controles.botaoCancelar.innerHTML = "Cancelar";
@@ -82,8 +82,8 @@ function marcarTempo(controles, auxiliar) {
     controles.outputTempo.innerHTML = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
     if (controles.outputTempo.innerHTML === "00:00") {
-        window.clearInterval(auxiliar.timer);        
-        habilitarElementos(true, controles.botaoIniciar);        
+        window.clearInterval(auxiliar.timer);
+        habilitarElementos(true, controles.botaoIniciar);
         habilitarElementos(false, controles.botaoCancelar);
         controles.painelPalavras.innerHTML = "";
         controles.botaoIniciar.innerHTML = "Conferir";
@@ -95,7 +95,7 @@ function marcarTempo(controles, auxiliar) {
 function inserirPalavra(controles) {
     let palavra = controles.palavraLembrada.value;
     let lista = controles.listaLembradas;
-    lista.disabled = false;
+    habilitarElementos(true, lista);
     lista.selectedIndex = -1;
 
     if (palavra.trim() !== "") {
@@ -105,8 +105,7 @@ function inserirPalavra(controles) {
         lista.add(newOption);
 
         if (lista.length === lista.size) {
-            controles.botaoInserir.disabled = true;
-            controles.palavraLembrada.disabled = true;
+            habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
         }
     }
 
@@ -130,8 +129,7 @@ function removerPalavrasSelecionadas(controles) {
         lista.remove(lista.selectedIndex);
 
         if (controles.palavraLembrada.disabled) {
-            controles.botaoInserir.disabled = false;
-            controles.palavraLembrada.disabled = false;
+            habilitarElementos(true, controles.botaoInserir, controles.palavraLembrada);
         }
     }
 }
