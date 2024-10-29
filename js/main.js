@@ -39,19 +39,33 @@ function exibirPalavras(controles, auxiliar) {
 
     if (controles.botaoIniciar.innerHTML === "Iniciar") {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
-        auxiliar.timer = window.setInterval(marcarTempo, 10, controles, auxiliar);
+        auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
+        gerarExibicaoPalavras(controles, auxiliar);
     } else {
         controles.botaoIniciar.innerHTML = "Iniciar";
         controles.botaoCancelar.innerHTML = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas, controles.botaoRemoverSelecionadas);
         controles.listaLembradas.selectedIndex = -1;
     }
+    controles.painelPalavras.style.display = "block";
+}
 
-    controles.painelPalavras.innerHTML = auxiliar.escolhidas;
+function gerarExibicaoPalavras(controles, auxiliar) {
+    let escolhidas = auxiliar.escolhidas;
+
+    while (controles.painelPalavras.hasChildNodes()) {
+        controles.painelPalavras.removeChild(controles.painelPalavras.firstChild);
+    }
+
+    for (let i = 0; i < escolhidas.length; i++) {
+        let newOutput = document.createElement("output");
+        newOutput.textContent = escolhidas[i];
+        controles.painelPalavras.appendChild(newOutput);
+    }
 }
 
 function limparPainel(controles, auxiliar) {
-    controles.painelPalavras.innerHTML = "";
+    controles.painelPalavras.style.display = "none";
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.innerHTML = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
@@ -85,7 +99,7 @@ function marcarTempo(controles, auxiliar) {
         window.clearInterval(auxiliar.timer);
         habilitarElementos(true, controles.botaoIniciar);
         habilitarElementos(false, controles.botaoCancelar);
-        controles.painelPalavras.innerHTML = "";
+        controles.painelPalavras.style.display = "none";
         controles.botaoIniciar.innerHTML = "Conferir";
         controles.listaLembradas.size = controles.seletorQuantidade.value;
         controles.painelInferior.style.display = "block";
@@ -101,7 +115,6 @@ function inserirPalavra(controles) {
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
         newOption.text = palavra;
-        //controles.listaLembradas.appendChild(newOption); 
         lista.add(newOption);
 
         if (lista.length === lista.size) {
