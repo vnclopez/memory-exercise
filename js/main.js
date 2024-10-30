@@ -38,13 +38,13 @@ function realizarExibicaoPalavras(controles, auxiliar) {
     habilitarElementos(true, controles.botaoCancelar);
     habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
 
-    if (controles.botaoIniciar.innerHTML === "Iniciar") {
+    if (controles.botaoIniciar.textContent === "Iniciar") {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
         auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
         gerarElementosDeExibicaoPalavras(controles, auxiliar);
     } else {
-        controles.botaoIniciar.innerHTML = "Iniciar";
-        controles.botaoCancelar.innerHTML = "Limpar";
+        controles.botaoIniciar.textContent = "Iniciar";
+        controles.botaoCancelar.textContent = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas, controles.botaoRemoverSelecionadas);
         controles.listaLembradas.selectedIndex = -1;
         marcarPalavrasLembradas(controles);
@@ -79,12 +79,12 @@ function exibirPalavras(visivel, controles) {
 function limparPainel(controles, auxiliar) {
     exibirPalavras(false, controles);
     habilitarElementos(false, controles.botaoCancelar);
-    controles.botaoIniciar.innerHTML = "Iniciar";
+    controles.botaoIniciar.textContent = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
-        controles.botaoInserir, controles.botaoRemoverSelecionadas);    
+        controles.botaoInserir, controles.botaoRemoverSelecionadas);
 
-    if (controles.botaoCancelar.innerHTML === "Limpar") {
-        controles.botaoCancelar.innerHTML = "Cancelar";
+    if (controles.botaoCancelar.textContent === "Limpar") {
+        controles.botaoCancelar.textContent = "Cancelar";
         controles.painelInferior.style.display = "none";
         controles.palavraLembrada.value = "";
         controles.outputAcertos.textContent = "";
@@ -99,21 +99,21 @@ function limparPainel(controles, auxiliar) {
 }
 
 function selecionarTempo(controles) {
-    controles.outputTempo.innerHTML = controles.seletorTempo.value;
+    controles.outputTempo.textContent = controles.seletorTempo.value;
 }
 
 function marcarTempo(controles, auxiliar) {
-    let texto = controles.outputTempo.innerHTML;
+    let texto = controles.outputTempo.textContent;
     let tempo = new Date(`2024-10-10 12:${texto}`);
     tempo.setTime(tempo.getTime() - 1000);
-    controles.outputTempo.innerHTML = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
+    controles.outputTempo.textContent = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
-    if (controles.outputTempo.innerHTML === "00:00") {
+    if (controles.outputTempo.textContent === "00:00") {
         window.clearInterval(auxiliar.timer);
         habilitarElementos(true, controles.botaoIniciar);
         habilitarElementos(false, controles.botaoCancelar);
         exibirPalavras(false, controles);
-        controles.botaoIniciar.innerHTML = "Conferir";
+        controles.botaoIniciar.textContent = "Conferir";
         controles.listaLembradas.size = controles.seletorQuantidade.value;
         controles.painelInferior.style.display = "block";
     }
@@ -170,7 +170,6 @@ function marcarPalavrasLembradas(controles) {
     let lembradas = controles.listaLembradas.options;
     let outputs = controles.painelPalavras.children;
     let acertos = 0;
-    let porcentagem;
 
     for (let item of outputs) {
 
@@ -182,8 +181,11 @@ function marcarPalavrasLembradas(controles) {
             }
         }
     }
+    exibirPorcentagemAcertos(controles, acertos, outputs.length);
+}
 
-    porcentagem = (acertos * 100) / outputs.length;
-    controles.outputAcertos.textContent = `Lembrou ${acertos} de ${outputs.length} palavras. ${porcentagem.toFixed(0)}% de acertos`;
+function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
+    let porcentagem = (acertos * 100) / totalPalavras;
+    controles.outputAcertos.textContent = `Lembrou ${acertos} de ${totalPalavras} palavras. ${porcentagem.toFixed(0)}% de acertos`;
 }
 
