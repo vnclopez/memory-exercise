@@ -46,6 +46,7 @@ function realizarExibicaoPalavras(controles, auxiliar) {
         controles.botaoCancelar.innerHTML = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas, controles.botaoRemoverSelecionadas);
         controles.listaLembradas.selectedIndex = -1;
+        marcarPalavrasLembradas(controles);
     }
     exibirPalavras(true, controles);
 }
@@ -160,6 +161,21 @@ function removerPalavrasSelecionadas(controles) {
 function habilitarElementos(habilitar) {
     for (let i = 1; i < arguments.length; i++) {
         arguments[i].disabled = !habilitar;
+    }
+}
+
+function marcarPalavrasLembradas(controles) {
+    let lembradas = controles.listaLembradas.options;
+    let outputs = controles.painelPalavras.children;
+
+    for (let item of outputs) {
+
+        for (let i = 0; i < lembradas.length; i++) {
+            if (item.textContent.toLowerCase() === lembradas[i].text.toLowerCase()) {
+                item.style.color = "blue";
+                break;
+            }            
+        }
     }
 }
 
