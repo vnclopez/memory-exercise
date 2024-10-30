@@ -82,6 +82,7 @@ function limparPainel(controles, auxiliar) {
     controles.botaoIniciar.textContent = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
         controles.botaoInserir, controles.botaoRemoverSelecionadas);
+    controles.outputTempo.style.color = "black";
 
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
@@ -108,6 +109,10 @@ function marcarTempo(controles, auxiliar) {
     tempo.setTime(tempo.getTime() - 1000);
     controles.outputTempo.textContent = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
+    if (controles.outputTempo.textContent === "00:10") {
+        controles.outputTempo.style.color = "red";
+    }
+
     if (controles.outputTempo.textContent === "00:00") {
         window.clearInterval(auxiliar.timer);
         habilitarElementos(true, controles.botaoIniciar);
@@ -116,6 +121,7 @@ function marcarTempo(controles, auxiliar) {
         controles.botaoIniciar.textContent = "Conferir";
         controles.listaLembradas.size = controles.seletorQuantidade.value;
         controles.painelInferior.style.display = "block";
+        controles.outputTempo.style.color = "black";
     }
 }
 
