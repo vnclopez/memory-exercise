@@ -12,7 +12,8 @@ window.onload = () => {
         palavraLembrada: document.getElementById("palavra-lembrada"),
         botaoInserir: document.getElementById("botao-inserir"),
         listaLembradas: document.getElementById("lista-lembradas"),
-        botaoRemoverSelecionadas: document.getElementById("botao-remover-selecionadas")
+        botaoRemoverSelecionadas: document.getElementById("botao-remover-selecionadas"),
+        outputAcertos: document.getElementById("output-acertos")
     };
 
     const auxiliar = {
@@ -80,12 +81,13 @@ function limparPainel(controles, auxiliar) {
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.innerHTML = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
-        controles.botaoInserir, controles.botaoRemoverSelecionadas);
+        controles.botaoInserir, controles.botaoRemoverSelecionadas);    
 
     if (controles.botaoCancelar.innerHTML === "Limpar") {
         controles.botaoCancelar.innerHTML = "Cancelar";
         controles.painelInferior.style.display = "none";
         controles.palavraLembrada.value = "";
+        controles.outputAcertos.textContent = "";
 
         while (controles.listaLembradas.hasChildNodes()) {
             controles.listaLembradas.removeChild(controles.listaLembradas.firstChild);
@@ -167,15 +169,21 @@ function habilitarElementos(habilitar) {
 function marcarPalavrasLembradas(controles) {
     let lembradas = controles.listaLembradas.options;
     let outputs = controles.painelPalavras.children;
+    let acertos = 0;
+    let porcentagem;
 
     for (let item of outputs) {
 
         for (let i = 0; i < lembradas.length; i++) {
             if (item.textContent.toLowerCase() === lembradas[i].text.toLowerCase()) {
                 item.style.color = "blue";
+                acertos++;
                 break;
-            }            
+            }
         }
     }
+
+    porcentagem = (acertos * 100) / outputs.length;
+    controles.outputAcertos.textContent = `Lembrou ${acertos} de ${outputs.length} palavras. ${porcentagem.toFixed(0)}% de acertos`;
 }
 
