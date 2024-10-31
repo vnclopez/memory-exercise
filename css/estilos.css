@@ -5,11 +5,32 @@
 }
 
 body {
+    height: 100vh;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .container {
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
+}
+
+header{
+    background-color: #04aa6d;
+    padding: 15px 0;
+}
+
+h1{
+    color: #fff;
+    text-align: center;
+}
+
+footer{
+    background-color: #2D3748;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
 }
