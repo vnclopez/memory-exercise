@@ -1,8 +1,9 @@
 import escolhePalavras from './funcoesEscolhaPalavras.js';
 
 window.onload = () => {
-    const controles = {
-        painelPalavras: document.getElementById("painel-palavras"),
+    const controles = {        
+        painelPalavrasEsquerdo: document.getElementById("painel-palavras-esquerdo"),
+        painelPalavrasDireito: document.getElementById("painel-palavras-direito"),
         botaoIniciar: document.getElementById("botao-iniciar"),
         botaoCancelar: document.getElementById("botao-cancelar"),
         seletorTempo: document.getElementById("seletor-tempo"),
@@ -53,26 +54,31 @@ function realizarExibicaoPalavras(controles, auxiliar) {
 }
 
 function gerarElementosDeExibicaoPalavras(controles, auxiliar) {
-    let escolhidas = auxiliar.escolhidas;
-    let painelPalavras = controles.painelPalavras;
+    const escolhidas = auxiliar.escolhidas;
+    let painelPalavrasEsquerdo = controles.painelPalavrasEsquerdo;
+    let painelPalavrasDireito = controles.painelPalavrasDireito;
 
-    while (painelPalavras.hasChildNodes()) {
-        painelPalavras.removeChild(painelPalavras.firstChild);
+    while (painelPalavrasEsquerdo.hasChildNodes()) {
+        painelPalavrasEsquerdo.removeChild(painelPalavrasEsquerdo.firstChild);
+        painelPalavrasDireito.removeChild(painelPalavrasDireito.firstChild);
     }
 
     for (let i = 0; i < escolhidas.length; i++) {
         let newOutput = document.createElement("output");
         newOutput.textContent = escolhidas[i];
-        newOutput.style.visibility = "hidden";
-        painelPalavras.appendChild(newOutput);
+
+        if (i < (escolhidas.length / 2))
+            painelPalavrasEsquerdo.appendChild(newOutput);
+        else
+            painelPalavrasDireito.appendChild(newOutput);
     }
 }
 
 function exibirPalavras(visivel, controles) {
-    let outputs = controles.painelPalavras.children;
+    const divs = [controles.painelPalavrasEsquerdo, controles.painelPalavrasDireito];
 
-    for (let output of outputs) {
-        output.style.visibility = (visivel) ? "visible" : "hidden";
+    for (let div of divs) {
+        div.style.visibility = (visivel) ? "visible" : "hidden";
     }
 }
 
@@ -173,15 +179,25 @@ function habilitarElementos(habilitar) {
 }
 
 function marcarPalavrasLembradas(controles) {
-    let lembradas = controles.listaLembradas.options;
-    let outputs = controles.painelPalavras.children;
+    const lembradas = controles.listaLembradas.options;
+    const outputsEsquerdo = controles.painelPalavrasEsquerdo.children;
+    const outputsDireito = controles.painelPalavrasDireito.children;
+    const outputs = [];
     let acertos = 0;
+
+    for (let item of outputsEsquerdo) {
+        outputs.push(item);
+    }
+
+    for (let item of outputsDireito) {
+        outputs.push(item);
+    }
 
     for (let item of outputs) {
 
         for (let i = 0; i < lembradas.length; i++) {
             if (item.textContent.toLowerCase() === lembradas[i].text.toLowerCase()) {
-                item.style.color = "blue";
+                item.style.color = "#04aa6d";
                 acertos++;
                 break;
             }
