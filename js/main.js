@@ -1,7 +1,7 @@
 import escolhePalavras from './funcoesEscolhaPalavras.js';
 
 window.onload = () => {
-    const controles = {        
+    const controles = {
         painelPalavrasEsquerdo: document.getElementById("painel-palavras-esquerdo"),
         painelPalavrasDireito: document.getElementById("painel-palavras-direito"),
         botaoIniciar: document.getElementById("botao-iniciar"),
@@ -30,7 +30,7 @@ window.onload = () => {
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
 
     habilitarElementos(false, controles.botaoCancelar);
-    controles.painelInferior.style.display = "none";
+    controles.painelInferior.style.visibility = "hidden";
     controles.palavraLembrada.value = "";
     selecionarTempo(controles);
 };
@@ -92,7 +92,7 @@ function limparPainel(controles, auxiliar) {
 
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
-        controles.painelInferior.style.display = "none";
+        controles.painelInferior.style.visibility = "hidden";
         controles.palavraLembrada.value = "";
         controles.outputAcertos.textContent = "";
 
@@ -125,8 +125,8 @@ function marcarTempo(controles, auxiliar) {
         habilitarElementos(false, controles.botaoCancelar);
         exibirPalavras(false, controles);
         controles.botaoIniciar.textContent = "Conferir";
-        controles.listaLembradas.size = controles.seletorQuantidade.value;
-        controles.painelInferior.style.display = "block";
+        //controles.listaLembradas.size = controles.seletorQuantidade.value;
+        controles.painelInferior.style.visibility = "visible";
         controles.outputTempo.style.color = "black";
     }
 }
@@ -134,15 +134,17 @@ function marcarTempo(controles, auxiliar) {
 function inserirPalavra(controles) {
     let palavra = controles.palavraLembrada.value;
     let lista = controles.listaLembradas;
+    let quantidadeMaxima = Number(controles.seletorQuantidade.value);
+
     habilitarElementos(true, lista);
     lista.selectedIndex = -1;
 
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
         newOption.text = palavra;
-        lista.add(newOption);
+        lista.add(newOption);        
 
-        if (lista.length === lista.size) {
+        if (lista.length === quantidadeMaxima) {
             habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
         }
     }
@@ -197,7 +199,8 @@ function marcarPalavrasLembradas(controles) {
 
         for (let i = 0; i < lembradas.length; i++) {
             if (item.textContent.toLowerCase() === lembradas[i].text.toLowerCase()) {
-                item.style.color = "#04aa6d";
+                item.style.color = "#059761";
+                item.style.fontWeight = 'bold';
                 acertos++;
                 break;
             }
