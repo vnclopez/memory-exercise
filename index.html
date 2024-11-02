@@ -26,37 +26,52 @@
         </fieldset>
 
         <fieldset id="painel-central">
-            <button type="button" id="botao-iniciar">Iniciar</button>
+            <div>
+                <button type="button" id="botao-iniciar">Iniciar</button>
+                <output id="output-tempo">02:00</output>
+                <button type="button" id="botao-cancelar" disabled>Cancelar</button>
+            </div>
 
-            <label>Quantidade:</label>
-            <select id="seletor-quantidade">
-                <option value="10">10 palavras</option>
-                <option value="12">12 palavras</option>
-                <option value="14">14 palavras</option>
-                <option value="16">16 palavras</option>
-                <option value="18">18 palavras</option>
-                <option value="20">20 palavras</option>
-            </select>
+            <div>
+                <div>
+                    <label>Quantidade:</label>
+                    <select id="seletor-quantidade">
+                        <option value="10">10 palavras</option>
+                        <option value="12">12 palavras</option>
+                        <option value="14">14 palavras</option>
+                        <option value="16">16 palavras</option>
+                        <option value="18">18 palavras</option>
+                        <option value="20">20 palavras</option>
+                    </select>
+                </div>
 
-            <label>Tempo:</label>
-            <select id="seletor-tempo">
-                <option value="02:00">2 minutos</option>
-                <option value="01:00">1 minuto</option>
-                <option value="00:30">30 segundos</option>
-            </select>
+                <div>
+                    <label>Tempo:</label>
+                    <select id="seletor-tempo">
+                        <option value="02:00">2 minutos</option>
+                        <option value="01:00">1 minuto</option>
+                        <option value="00:30">30 segundos</option>
+                    </select>
+                </div>
 
-            <output id="output-tempo">02:00</output>
-
-            <button type="button" id="botao-cancelar" disabled>Cancelar</button>
+            </div>
         </fieldset>
 
         <fieldset id="painel-inferior">
-            <label>Digite aqui as palavras lembradas:</label>
-            <input type="text" id="palavra-lembrada">
-            <button type="button" id="botao-inserir">Inserir</button>
-            <select id="lista-lembradas" multiple></select>
-            <button type="button" id="botao-remover-selecionadas">Remover Selecionada(s)</button>
-            <output id="output-acertos"></output>
+            <div>
+                <label>Digite aqui as palavras lembradas:</label>
+                <input type="text" id="palavra-lembrada">
+                <button type="button" id="botao-inserir" title="Inserir palavras na lista">Inserir</button>
+            </div>
+
+            <div>
+                <select id="lista-lembradas" multiple size="10"></select>
+                <div>
+                    <button type="button" id="botao-remover-selecionadas"
+                        title="Remover palavras selecionadas na lista">Remover</button>
+                    <output id="output-acertos"></output>
+                </div>
+            </div>
         </fieldset>
     </form>
 
