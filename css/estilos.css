@@ -10,6 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #f4f4f6;
 }
 
 .container {
@@ -37,20 +38,25 @@ footer {
 
 form {
     padding: 10px;
-    /* height: 80vh;   */
-    background-color: #D9EEE1;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+}
+
+fieldset {
+    box-shadow: 0 0 4px 0.5px gray;
+    border: none;
+    border-radius: 5px;
 }
 
 #painel-palavras {
     background-color: #fff;
-    height: 250px;
+    height: 280px;
+    width: 50%;
+    min-width: 280px;
     display: flex;
-    justify-content: space-evenly;
-    /* align-items: center;*/
-    /* gap: 5px; */
+    justify-content: space-around;        
 }
 
 #painel-palavras div {
@@ -58,3 +64,113 @@ form {
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+button {
+    height: 40px;
+    color: #fff;
+    background-color: #04aa6d;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0 15px; 
+    border-radius: 5px;   
+}
+
+#botao-iniciar {
+    background-color: #2196F3;
+}
+
+button:hover {
+    background-color: #059761;
+}
+
+#botao-iniciar:hover {
+    background-color: #197FD0;
+}
+
+button:disabled,
+#botao-iniciar:disabled {
+    background-color: #f4f4f6;
+    color: #2D37484F;
+    border: 1px solid #2D37484F;
+}
+
+select:not(#lista-lembradas) {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+#painel-central {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 20px;    
+    background-color: #fff;
+}
+
+#painel-central div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+#painel-central div:first-child {
+    justify-content: space-between;
+}
+
+#output-tempo {
+    font-weight: bold;
+}
+
+#lista-lembradas {
+    width: 160px;
+    overflow-y: auto;    
+    /* border: 1px solid gray; */
+}
+
+#painel-inferior {
+    /* width: 50%; */
+    display: flex;
+    height: 190px;
+    gap: 15px;
+    padding: 10px 20px;
+    padding-right: 10px;    
+    background-color: #fff;
+}
+
+#painel-inferior div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#painel-inferior div:nth-child(2) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+}
+
+#painel-inferior div:nth-child(2) div {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text] {
+    width: 100%;
+}
+
+#output-acertos {
+    font-weight: bold;
+    color: #059761;
+}
+
+
+/* 
+#lista-lembradas option::selection {
+    background-color: #04aa6d;
+} */
