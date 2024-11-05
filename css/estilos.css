@@ -56,24 +56,26 @@ fieldset {
     width: 50%;
     min-width: 280px;
     display: flex;
-    justify-content: space-around;        
+    justify-content: space-around;
 }
 
 #painel-palavras div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 button {
     height: 40px;
+    width: 85px;
     color: #fff;
     background-color: #04aa6d;
     border: none;
     font-weight: bold;
-    font-size: 14px;
-    padding: 0 15px; 
-    border-radius: 5px;   
+    font-size: 14px;    
+    border-radius: 5px;
 }
 
 #botao-iniciar {
@@ -106,7 +108,7 @@ select:not(#lista-lembradas) {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 10px 20px;    
+    padding: 10px 15px;
     background-color: #fff;
 }
 
@@ -126,25 +128,26 @@ select:not(#lista-lembradas) {
 }
 
 #lista-lembradas {
-    width: 160px;
-    overflow-y: auto;    
+    width: 120px;
+    overflow-y: auto;
     /* border: 1px solid gray; */
 }
 
 #painel-inferior {
-    /* width: 50%; */
+    width: 50%;
     display: flex;
-    height: 190px;
-    gap: 15px;
-    padding: 10px 20px;
-    padding-right: 10px;    
+    /* height: 185px; */
+    justify-content: space-between;
+    padding: 10px 15px;
     background-color: #fff;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 #painel-inferior div:first-child {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
 }
 
@@ -158,6 +161,7 @@ select:not(#lista-lembradas) {
 #painel-inferior div:nth-child(2) div {
     display: flex;
     flex-direction: column;
+    gap: 25px;
 }
 
 input[type=text] {
@@ -167,10 +171,7 @@ input[type=text] {
 #output-acertos {
     font-weight: bold;
     color: #059761;
+    text-align: center;
+    font-variant: small-caps;
+    /* font-size: 14px;     */
 }
-
-
-/* 
-#lista-lembradas option::selection {
-    background-color: #04aa6d;
-} */
