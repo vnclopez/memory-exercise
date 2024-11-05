@@ -30,7 +30,7 @@ window.onload = () => {
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
 
     habilitarElementos(false, controles.botaoCancelar);
-    controles.painelInferior.style.visibility = "hidden";
+    controles.painelInferior.style.opacity = "0";
     controles.palavraLembrada.value = "";
     selecionarTempo(controles);
 };
@@ -44,7 +44,7 @@ function realizarExibicaoPalavras(controles, auxiliar) {
         auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
         gerarElementosDeExibicaoPalavras(controles, auxiliar);
     } else {
-        controles.botaoIniciar.textContent = "Iniciar";
+        //controles.botaoIniciar.textContent = "Iniciar";
         controles.botaoCancelar.textContent = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas, controles.botaoRemoverSelecionadas);
         controles.listaLembradas.selectedIndex = -1;
@@ -78,7 +78,7 @@ function exibirPalavras(visivel, controles) {
     const divs = [controles.painelPalavrasEsquerdo, controles.painelPalavrasDireito];
 
     for (let div of divs) {
-        div.style.visibility = (visivel) ? "visible" : "hidden";
+        div.style.opacity = (visivel) ? "1" : "0";
     }
 }
 
@@ -86,13 +86,12 @@ function limparPainel(controles, auxiliar) {
     exibirPalavras(false, controles);
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.textContent = "Iniciar";
-    habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada,
-        controles.botaoInserir, controles.botaoRemoverSelecionadas);
+    habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.palavraLembrada);
     controles.outputTempo.style.color = "black";
 
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
-        controles.painelInferior.style.visibility = "hidden";
+        controles.painelInferior.style.opacity = "0";
         controles.palavraLembrada.value = "";
         controles.outputAcertos.textContent = "";
 
@@ -121,12 +120,12 @@ function marcarTempo(controles, auxiliar) {
 
     if (controles.outputTempo.textContent === "00:00") {
         window.clearInterval(auxiliar.timer);
-        habilitarElementos(true, controles.botaoIniciar);
+        habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.botaoRemoverSelecionadas);
         habilitarElementos(false, controles.botaoCancelar);
         exibirPalavras(false, controles);
         controles.botaoIniciar.textContent = "Conferir";
         //controles.listaLembradas.size = controles.seletorQuantidade.value;
-        controles.painelInferior.style.visibility = "visible";
+        controles.painelInferior.style.opacity = "1";
         controles.outputTempo.style.color = "black";
     }
 }
@@ -142,7 +141,7 @@ function inserirPalavra(controles) {
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
         newOption.text = palavra;
-        lista.add(newOption);        
+        lista.add(newOption);
 
         if (lista.length === quantidadeMaxima) {
             habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
@@ -211,6 +210,6 @@ function marcarPalavrasLembradas(controles) {
 
 function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
     let porcentagem = (acertos * 100) / totalPalavras;
-    controles.outputAcertos.textContent = `Lembrou ${acertos} de ${totalPalavras} palavras. ${porcentagem.toFixed(0)}% de acertos`;
+    controles.outputAcertos.innerText = `Lembrou ${acertos} de ${totalPalavras} palavras \n${porcentagem.toFixed(0)}% de acertos`;
 }
 
