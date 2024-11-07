@@ -40,8 +40,7 @@ form {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* justify-content: center; */
+    align-items: center;    
     gap: 15px;
 }
 
@@ -54,8 +53,7 @@ fieldset {
 #painel-palavras {
     background-color: #fff;
     height: 280px;
-    width: 50%;
-    min-width: 280px;
+    width: 500px;
     display: flex;
     justify-content: space-around;
 }
@@ -76,7 +74,7 @@ button {
     background-color: #04aa6d;
     border: none;
     font-weight: bold;
-    font-size: 14px;    
+    font-size: 14px;
     border-radius: 5px;
 }
 
@@ -106,7 +104,7 @@ select:not(#lista-lembradas) {
 }
 
 #painel-central {
-    width: 50%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -136,9 +134,8 @@ select:not(#lista-lembradas) {
 }
 
 #painel-inferior {
-    width: 50%;
-    display: flex;
-    /* height: 185px; */
+    width: 500px;
+    display: flex;    
     justify-content: space-between;
     padding: 10px 15px;
     background-color: #fff;
@@ -174,6 +171,96 @@ input[type=text] {
     font-weight: bold;
     color: #059761;
     text-align: center;
-    font-variant: small-caps;
-    /* font-size: 14px;     */
+    font-variant: small-caps;    
+}
+
+/*===============================================MEDIA QUERIES=====================================*/
+
+@media (max-width: 384px) {
+    label {
+        font-size: 11px;        
+    }
+
+    select:not(#lista-lembradas) {
+        font-size: 11px;
+        width: 85px;
+        padding-left: 1px;
+        padding-right: 0;
+    }
+
+    #painel-inferior label {
+        font-size: 10px;
+        text-align: center;        
+    }
+
+    #painel-inferior button{
+        height: 35px;
+    }
+
+    #lista-lembradas {
+        width: 90px;
+    }   
+
+    #output-acertos {
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 385px) and (max-width: 432px) {
+    select:not(#lista-lembradas) {
+        width: 100px;
+        padding-left: 2px;
+        padding-right: 0;
+    }
+
+    #lista-lembradas {
+        width: 100px;
+    }   
+
+    #painel-inferior label {
+        font-size: 11px;        
+    }
+}
+
+
+@media (min-width: 385px) and (max-width: 482px) {
+
+    select:not(#lista-lembradas) {        
+        font-size: 13px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    #painel-inferior label {
+        font-size: 12px;
+        text-align: center;
+    }    
+
+    #output-acertos {
+        font-size: 14px;
+    }
+
+}
+
+@media (min-width: 483px) and (max-width: 530px) {
+    #painel-inferior label {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 530px) {
+
+    #painel-central,
+    #painel-inferior,
+    #painel-palavras {
+        width: 98%;        
+    }
+
+    #painel-inferior {
+        justify-content: space-evenly;
+        gap: 10px;
+    }
 }
