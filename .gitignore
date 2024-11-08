@@ -1,3 +1,4 @@
 *.lnk
 index.js
 package.json
+.vercel
