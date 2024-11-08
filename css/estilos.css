@@ -40,7 +40,7 @@ form {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     gap: 15px;
 }
 
@@ -130,12 +130,13 @@ select:not(#lista-lembradas) {
 #lista-lembradas {
     width: 120px;
     overflow-y: auto;
-    /* border: 1px solid gray; */
+    /* border: 1px solid gray; 
+    */
 }
 
 #painel-inferior {
     width: 500px;
-    display: flex;    
+    display: flex;
     justify-content: space-between;
     padding: 10px 15px;
     background-color: #fff;
@@ -171,14 +172,14 @@ input[type=text] {
     font-weight: bold;
     color: #059761;
     text-align: center;
-    font-variant: small-caps;    
+    font-variant: small-caps;
 }
 
 /*===============================================MEDIA QUERIES=====================================*/
 
 @media (max-width: 384px) {
     label {
-        font-size: 11px;        
+        font-size: 11px;
     }
 
     select:not(#lista-lembradas) {
@@ -188,18 +189,13 @@ input[type=text] {
         padding-right: 0;
     }
 
-    #painel-inferior label {
-        font-size: 10px;
-        text-align: center;        
-    }
-
-    #painel-inferior button{
+    #painel-inferior button {
         height: 35px;
     }
 
     #lista-lembradas {
         width: 90px;
-    }   
+    }
 
     #output-acertos {
         font-size: 12px;
@@ -216,17 +212,13 @@ input[type=text] {
 
     #lista-lembradas {
         width: 100px;
-    }   
-
-    #painel-inferior label {
-        font-size: 11px;        
     }
 }
 
 
-@media (min-width: 385px) and (max-width: 482px) {
+@media (min-width: 385px) and (max-width: 483px) {
 
-    select:not(#lista-lembradas) {        
+    select:not(#lista-lembradas) {
         font-size: 13px;
     }
 
@@ -234,18 +226,19 @@ input[type=text] {
         font-size: 13px;
     }
 
-    #painel-inferior label {
-        font-size: 12px;
-        text-align: center;
-    }    
-
     #output-acertos {
         font-size: 14px;
     }
 
 }
 
-@media (min-width: 483px) and (max-width: 530px) {
+@media (max-width: 483px) {
+    #painel-inferior label {
+        text-align: center;
+    }
+}
+
+@media (min-width: 484px) and (max-width: 530px) {
     #painel-inferior label {
         font-size: 13px;
     }
@@ -256,7 +249,7 @@ input[type=text] {
     #painel-central,
     #painel-inferior,
     #painel-palavras {
-        width: 98%;        
+        width: 98%;
     }
 
     #painel-inferior {
