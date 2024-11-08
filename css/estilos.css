@@ -129,9 +129,7 @@ select:not(#lista-lembradas) {
 
 #lista-lembradas {
     width: 120px;
-    overflow-y: auto;
-    /* border: 1px solid gray; 
-    */
+    overflow-y: auto;    
 }
 
 #painel-inferior {
@@ -164,7 +162,7 @@ select:not(#lista-lembradas) {
     gap: 25px;
 }
 
-input[type=text] {
+#palavra-lembrada {
     width: 100%;
 }
 
@@ -176,6 +174,18 @@ input[type=text] {
 }
 
 /*===============================================MEDIA QUERIES=====================================*/
+
+@media (max-width: 353px) {
+    #output-acertos {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 354px) and (max-width: 483px) {
+    #output-acertos {
+        font-size: 14px;
+    }
+}
 
 @media (max-width: 384px) {
     label {
@@ -195,10 +205,6 @@ input[type=text] {
 
     #lista-lembradas {
         width: 90px;
-    }
-
-    #output-acertos {
-        font-size: 12px;
     }
 }
 
@@ -225,11 +231,6 @@ input[type=text] {
     label {
         font-size: 13px;
     }
-
-    #output-acertos {
-        font-size: 14px;
-    }
-
 }
 
 @media (max-width: 483px) {
