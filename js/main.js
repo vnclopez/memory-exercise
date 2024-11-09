@@ -131,6 +131,7 @@ function marcarTempo(controles, auxiliar) {
         if (controles.listaLembradas.offsetHeight < 50) {
             controles.listaSubstituta.style.visibility = "visible";
             controles.listaLembradas.style.visibility = "hidden";
+            controles.listaSubstituta.ariaDisabled = "true";
         }
     }
 }
@@ -147,6 +148,10 @@ function inserirPalavra(controles) {
         newOption.text = palavra;
         lista.add(newOption);
         habilitarElementos(true, lista, controles.botaoRemoverSelecionadas);
+
+        if (controles.listaLembradas.offsetHeight < 50) {
+            controles.listaSubstituta.ariaDisabled = "false";
+        }
 
         if (lista.length === quantidadeMaxima) {
             habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
@@ -179,6 +184,7 @@ function removerPalavrasSelecionadas(controles) {
 
     if (controles.listaLembradas.length === 0) {
         habilitarElementos(false, controles.botaoRemoverSelecionadas, controles.listaLembradas);
+        controles.listaSubstituta.ariaDisabled = "true";
     }
 }
 
@@ -223,6 +229,11 @@ function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
 }
 
 function acessarListaLembradas(controles) {
-    alert("clicado");
+
+    if (controles.listaSubstituta.ariaDisabled === "false") {
+        controles.listaLembradas.showPicker();        
+    }else{
+        alert("NAO habilitado");
+    }
 }
 
