@@ -14,7 +14,8 @@ window.onload = () => {
         botaoInserir: document.getElementById("botao-inserir"),
         listaLembradas: document.getElementById("lista-lembradas"),
         botaoRemoverSelecionadas: document.getElementById("botao-remover-selecionadas"),
-        outputAcertos: document.getElementById("output-acertos")
+        outputAcertos: document.getElementById("output-acertos"),
+        listaSubstituta: document.getElementById("lista-substituta")
     };
 
     const auxiliar = {
@@ -28,6 +29,7 @@ window.onload = () => {
     controles.botaoInserir.onclick = () => inserirPalavra(controles);
     controles.palavraLembrada.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
+    controles.listaSubstituta.onclick = () => acessarListaLembradas(controles);
 
     habilitarElementos(false, controles.botaoCancelar, controles.listaLembradas);
     controles.painelInferior.style.opacity = "0";
@@ -125,6 +127,11 @@ function marcarTempo(controles, auxiliar) {
         controles.painelInferior.style.opacity = "1";
         controles.outputTempo.style.color = "black";
         controles.outputAcertos.textContent = "";
+
+        if (controles.listaLembradas.offsetHeight < 50) {
+            controles.listaSubstituta.style.visibility = "visible";
+            controles.listaLembradas.style.visibility = "hidden";
+        }
     }
 }
 
@@ -213,5 +220,9 @@ function marcarPalavrasLembradas(controles) {
 function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
     let porcentagem = (acertos * 100) / totalPalavras;
     controles.outputAcertos.innerText = `Lembrou ${acertos} de ${totalPalavras} palavras \n${porcentagem.toFixed(0)}% de acertos`;
+}
+
+function acessarListaLembradas(controles) {
+    alert("clicado");
 }
 
