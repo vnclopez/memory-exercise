@@ -193,8 +193,7 @@ select:not(#lista-lembradas) {
 }
 
 #lista-substituta[aria-disabled="true"] {
-    border: 1px solid #ddd;
-    color: #999;
+    border: 1px solid #ddd;    
 }
 
 #lista-substituta[aria-disabled="false"]:hover {

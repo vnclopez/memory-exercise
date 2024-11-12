@@ -30,6 +30,7 @@ window.onload = () => {
     controles.palavraLembrada.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
     controles.listaSubstituta.onclick = () => acessarListaLembradas(controles);
+    controles.listaLembradas.oninput = () => marcarSelecaoNaListaSubstituta(controles);
 
     habilitarElementos(false, controles.botaoCancelar, controles.listaLembradas);
     controles.painelInferior.style.opacity = "0";
@@ -49,6 +50,7 @@ function realizarExibicaoPalavras(controles, auxiliar) {
         controles.botaoCancelar.textContent = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas);
         controles.listaLembradas.selectedIndex = -1;
+        marcarSelecaoNaListaSubstituta(controles);
         controles.listaSubstituta.ariaDisabled = "true";
         marcarPalavrasLembradas(controles);
     }
@@ -150,6 +152,7 @@ function inserirPalavra(controles) {
         let newOption = document.createElement("option");
         newOption.text = palavra;
         lista.add(newOption);
+        newOption.scrollIntoView();
         habilitarElementos(true, lista, controles.botaoRemoverSelecionadas);
 
         if (lista.length === quantidadeMaxima) {
@@ -170,7 +173,7 @@ function inserirPalavraNaListaSubstituta(controles, palavra) {
     let newOutput = document.createElement("output");
     newOutput.textContent = palavra;
     controles.listaSubstituta.appendChild(newOutput);
-
+    newOutput.scrollIntoView();
 }
 
 function inserirPalavraComEnter(controles, evento) {
@@ -248,6 +251,23 @@ function acessarListaLembradas(controles) {
 
     if (controles.listaSubstituta.ariaDisabled === "false") {
         controles.listaLembradas.showPicker();
+    }
+}
+
+function marcarSelecaoNaListaSubstituta(controles) {
+    if (controles.listaSubstituta.ariaDisabled === "false") {
+        const lembradas = controles.listaLembradas.options;
+        const substitutaLembradas = controles.listaSubstituta.children;
+        
+        for (let i = 0; i < lembradas.length; i++) {
+            if (lembradas[i].selected) {
+                substitutaLembradas[i].style.backgroundColor = "#04aa6d";
+                substitutaLembradas[i].style.color = "white";
+            } else {
+                substitutaLembradas[i].style.backgroundColor = "white";
+                substitutaLembradas[i].style.color = (controles.listaLembradas.disabled) ? "#999" : "black";
+            }
+        }
     }
 }
 
