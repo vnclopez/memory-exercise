@@ -4,6 +4,7 @@ window.onload = () => {
     const controles = {
         painelPalavrasEsquerdo: document.getElementById("painel-palavras-esquerdo"),
         painelPalavrasDireito: document.getElementById("painel-palavras-direito"),
+        mensagemInicial: document.getElementById("mensagem-inicial"),
         botaoIniciar: document.getElementById("botao-iniciar"),
         botaoCancelar: document.getElementById("botao-cancelar"),
         seletorTempo: document.getElementById("seletor-tempo"),
@@ -46,6 +47,7 @@ function realizarExibicaoPalavras(controles, auxiliar) {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
         auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
         gerarElementosDeExibicaoPalavras(controles, auxiliar);
+        controles.mensagemInicial.style.opacity = "0";
     } else {
         controles.botaoCancelar.textContent = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas);
@@ -90,6 +92,7 @@ function limparPainel(controles, auxiliar) {
     controles.botaoIniciar.textContent = "Iniciar";
     habilitarElementos(true, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
     controles.outputTempo.style.color = "black";
+    controles.mensagemInicial.style.opacity = "1";
 
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
@@ -126,6 +129,9 @@ function marcarTempo(controles, auxiliar) {
         controles.outputAcertos.textContent = "";
         limparLista(controles.listaLembradas);
 
+        if (navigator.maxTouchPoints === 0)
+            controles.palavraLembrada.focus();
+
         if (controles.listaLembradas.offsetHeight < 50) {
             controles.listaSubstituta.style.visibility = "visible";
             controles.listaLembradas.style.visibility = "hidden";
@@ -161,6 +167,7 @@ function inserirPalavra(controles) {
 
         if (controles.listaLembradas.offsetHeight < 50) {
             inserirPalavraNaListaSubstituta(controles, palavra)
+            marcarSelecaoNaListaSubstituta(controles);
         }
     }
 
@@ -258,10 +265,10 @@ function marcarSelecaoNaListaSubstituta(controles) {
     if (controles.listaSubstituta.ariaDisabled === "false") {
         const lembradas = controles.listaLembradas.options;
         const substitutaLembradas = controles.listaSubstituta.children;
-        
+
         for (let i = 0; i < lembradas.length; i++) {
             if (lembradas[i].selected) {
-                substitutaLembradas[i].style.backgroundColor = "#04aa6d";
+                substitutaLembradas[i].style.backgroundColor = "#0078d7";
                 substitutaLembradas[i].style.color = "white";
             } else {
                 substitutaLembradas[i].style.backgroundColor = "white";
