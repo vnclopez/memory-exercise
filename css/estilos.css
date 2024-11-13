@@ -56,6 +56,17 @@ fieldset {
     width: 500px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+#mensagem-inicial{
+    text-align: center;
+    color: #04aa6d;
+    font-size: 18px;
+    padding: 0 15px;
+    position: absolute;
+    transition: opacity 2s;    
 }
 
 #painel-palavras div {
