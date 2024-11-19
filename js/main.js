@@ -96,7 +96,7 @@ function limparPainel(controles, auxiliar) {
 
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
-        controles.painelInferior.style.opacity = "0";        
+        controles.painelInferior.style.opacity = "0";
     }
 
     window.clearInterval(auxiliar.timer);
@@ -269,12 +269,15 @@ function marcarSelecaoNaListaSubstituta(controles) {
         const substitutaLembradas = controles.listaSubstituta.children;
 
         for (let i = 0; i < lembradas.length; i++) {
-            if (lembradas[i].selected) {
+            if (lembradas[i].selected && substitutaLembradas[i].style.color !== "white") {
                 substitutaLembradas[i].style.backgroundColor = "#0078d7";
                 substitutaLembradas[i].style.color = "white";
-            } else {
+                substitutaLembradas[i].scrollIntoView();
+            }
+
+            if (!lembradas[i].selected) {
                 substitutaLembradas[i].style.backgroundColor = "white";
-                substitutaLembradas[i].style.color = (controles.listaLembradas.disabled) ? "#999" : "black";
+                substitutaLembradas[i].style.color = (controles.listaLembradas.disabled) ? "#999" : "black";//REFATORAR
             }
         }
     }
