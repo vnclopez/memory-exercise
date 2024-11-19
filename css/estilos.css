@@ -203,7 +203,10 @@ select:not(#lista-lembradas) {
     flex-direction: column;
     font-size: 13px;
     text-wrap: nowrap;
-    gap: 1px;
+}
+
+#lista-substituta output {
+    padding: 0.5px 0;
 }
 
 #lista-substituta[aria-disabled="true"] {
@@ -248,7 +251,10 @@ select:not(#lista-lembradas) {
     #lista-substituta {
         width: 90px;
         font-size: 12px;
-        gap: 2px;
+    }
+
+    #lista-substituta output {
+        padding: 1px 0;
     }
 }
 
