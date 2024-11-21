@@ -53,7 +53,7 @@ fieldset {
 #painel-palavras {
     background-color: #fff;
     height: 280px;
-    width: 500px;
+    width: 450px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -116,7 +116,7 @@ select:not(#lista-lembradas) {
 }
 
 #painel-central {
-    width: 500px;
+    width: 450px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -140,12 +140,12 @@ select:not(#lista-lembradas) {
 }
 
 #lista-lembradas {
-    width: 120px;
+    width: 150px;
     overflow-y: auto;
 }
 
 #painel-inferior {
-    width: 500px;
+    width: 450px;
     min-height: 184px;
     display: flex;
     justify-content: space-between;
@@ -153,25 +153,29 @@ select:not(#lista-lembradas) {
     background-color: #fff;
     opacity: 0;
     transition: opacity 1s;
+    position: relative;
+    gap: 15px;
 }
 
-#painel-inferior div:first-child {
+#painel-inferior-esquerdo {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 10px;
+    transition: opacity 1s;
+    /* max-width: calc((100%/2) + 20px); */
 }
 
-#painel-inferior div:nth-child(2):not(#lista-substituta) {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 10px;
-}
-
-#painel-inferior div:nth-child(2) div:not(#lista-substituta) {
+#painel-inferior-esquerdo div:first-child {
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
+}
+
+#painel-inferior-esquerdo div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 25px;
 }
 
@@ -181,10 +185,14 @@ select:not(#lista-lembradas) {
 
 #output-acertos {
     font-weight: bold;
+    font-size: 18px;
     color: #059761;
     text-align: center;
     font-variant: small-caps;
     transition: opacity 2s;
+    position: absolute;
+    top: 65px;
+    left: 30px;
 }
 
 #painel-inferior-direito div:first-child {
@@ -217,22 +225,32 @@ select:not(#lista-lembradas) {
     border: 1px solid #777;
 }
 
+#painel-inferior label {
+    margin-bottom: 5px;
+}
+
 /*===============================================MEDIA QUERIES=====================================*/
 
 @media (max-width: 353px) {
     #output-acertos {
-        font-size: 12px;
+        font-size: 16px;
+        left: 15px;
+        width: 50%;
     }
 }
 
-@media (min-width: 354px) and (max-width: 483px) {
+@media (min-width: 354px) and (max-width: 384px) {
     #output-acertos {
-        font-size: 14px;
+        font-size: 16px;
+        left: 10px;
+        width: 55%;
     }
 }
+
+@media (min-width: 354px) and (max-width: 483px) {}
 
 @media (max-width: 384px) {
-    label {
+    #painel-central label {
         font-size: 11px;
     }
 
@@ -243,32 +261,40 @@ select:not(#lista-lembradas) {
         padding-right: 0;
     }
 
-    #painel-inferior button {
-        height: 35px;
-    }
-
-    #lista-lembradas,
-    #lista-substituta {
-        width: 90px;
+    #painel-inferior label {
         font-size: 12px;
+        text-align: center;
     }
 
     #lista-substituta output {
         padding: 1px 0;
     }
+
+    #painel-inferior-esquerdo div:nth-child(2) {
+        gap: 20px;
+    }
 }
 
 
-@media (min-width: 385px) and (max-width: 432px) {
+@media (min-width: 385px) and (max-width: 442px) {
     select:not(#lista-lembradas) {
         width: 100px;
         padding-left: 2px;
         padding-right: 0;
     }
 
-    #lista-lembradas,
-    #lista-substituta {
-        width: 100px;
+    #output-acertos {
+        font-size: 16px;
+        left: 10px;
+        width: 55%;
+    }
+
+    #painel-inferior label {
+        text-align: center;
+    }
+
+    #painel-inferior-esquerdo div:nth-child(2) {
+        gap: 20px;
     }
 }
 
@@ -279,24 +305,35 @@ select:not(#lista-lembradas) {
         font-size: 13px;
     }
 
-    label {
+    #painel-central label {
         font-size: 13px;
+    }
+
+    #painel-inferior label {
+        font-size: 12px;
+    }
+
+    #painel-inferior-esquerdo {
+        width: 60%;
+    }
+}
+
+@media (min-width: 443px) and (max-width: 483px) {
+    #painel-inferior-esquerdo {
+        width: 60%;
+    }
+
+    #output-acertos {
+        font-size: 17px;        
+        left: 18px;
+    }
+
+    #painel-inferior label {
+        font-size: 14px;
     }
 }
 
 @media (max-width: 483px) {
-    #painel-inferior label {
-        text-align: center;
-    }
-}
-
-@media (min-width: 484px) and (max-width: 530px) {
-    #painel-inferior label {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 530px) {
 
     #painel-central,
     #painel-inferior,
@@ -304,8 +341,17 @@ select:not(#lista-lembradas) {
         width: 98%;
     }
 
-    #painel-inferior {
-        justify-content: space-evenly;
-        gap: 10px;
+    #lista-lembradas,
+    #lista-substituta {
+        width: 33vw;
     }
+
+    #painel-inferior-esquerdo {
+        gap: 15px;
+    }
+
+    #painel-inferior button {
+        height: 35px;
+    }
+
 }

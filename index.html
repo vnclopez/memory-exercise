@@ -62,10 +62,18 @@
 
         <fieldset id="painel-inferior">
             <div id="painel-inferior-esquerdo">
-                <label>Digite aqui as palavras lembradas:</label>
-                <input type="text" id="palavra-lembrada" disabled>
-                <button type="button" id="botao-inserir" title="Inserir palavras na lista ao lado">Inserir</button>
-                <output id="output-acertos"></output>
+                <div>
+                    <label for="palavra-lembrada">Digite aqui as palavras lembradas:</label>
+                    <input type="text" id="palavra-lembrada" disabled>
+                </div>
+
+                <div>
+                    <button type="button" id="botao-inserir" title="Inserir palavras na lista ao lado"
+                        disabled>Inserir</button>
+                    <button type="button" id="botao-remover-selecionadas" title="Remover palavras selecionadas na lista"
+                        disabled>Remover</button>
+                </div>
+
             </div>
 
             <div id="painel-inferior-direito">
@@ -75,11 +83,9 @@
 
                     <div id="lista-substituta" aria-disabled="true"></div>
                 </div>
-                <div>
-                    <button type="button" id="botao-remover-selecionadas" title="Remover palavras selecionadas na lista"
-                        disabled>Remover</button>
-                </div>
+
             </div>
+            <output id="output-acertos"></output>
         </fieldset>
     </form>
 
