@@ -160,16 +160,13 @@ select:not(#lista-lembradas) {
 #painel-inferior-esquerdo {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     gap: 10px;
-    transition: opacity 1s;
-    /* max-width: calc((100%/2) + 20px); */
+    transition: opacity 1s;    
 }
 
 #painel-inferior-esquerdo div:first-child {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 }
 
 #painel-inferior-esquerdo div:nth-child(2) {
@@ -203,7 +200,7 @@ select:not(#lista-lembradas) {
     visibility: hidden;
     height: 164px;
     border: 1px solid #999;
-    width: 120px;
+    width: 150px;
     overflow-y: auto;
     position: absolute;
     top: 0px;
@@ -213,8 +210,8 @@ select:not(#lista-lembradas) {
     text-wrap: nowrap;
 }
 
-#lista-substituta output {
-    padding: 0.5px 0;
+#lista-substituta output {    
+    line-height: 1.24em;
 }
 
 #lista-substituta[aria-disabled="true"] {
@@ -264,10 +261,6 @@ select:not(#lista-lembradas) {
     #painel-inferior label {
         font-size: 12px;
         text-align: center;
-    }
-
-    #lista-substituta output {
-        padding: 1px 0;
     }
 
     #painel-inferior-esquerdo div:nth-child(2) {
@@ -324,8 +317,8 @@ select:not(#lista-lembradas) {
     }
 
     #output-acertos {
-        font-size: 17px;        
-        left: 18px;
+        font-size: 17px;
+        left: 20px;
     }
 
     #painel-inferior label {
