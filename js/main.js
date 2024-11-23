@@ -11,7 +11,8 @@ window.onload = () => {
         seletorQuantidade: document.getElementById("seletor-quantidade"),
         outputTempo: document.getElementById("output-tempo"),
         painelInferior: document.getElementById("painel-inferior"),
-        painelInferiorEsquerdo: document.getElementById("painel-inferior-esquerdo"),
+        blocoPalavraLembrada: document.getElementById("bloco-palavra-lembrada"),
+        blocoBotoesLista: document.getElementById("bloco-botoes-lista"),
         palavraLembrada: document.getElementById("palavra-lembrada"),
         botaoInserir: document.getElementById("botao-inserir"),
         listaLembradas: document.getElementById("lista-lembradas"),
@@ -48,12 +49,14 @@ function realizarExibicaoPalavras(controles, auxiliar) {
         auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
         auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
         gerarElementosDeExibicaoPalavras(controles, auxiliar);
-        controles.mensagemInicial.style.opacity = "0";
-        controles.painelInferiorEsquerdo.style.opacity = "1";
+        controles.mensagemInicial.style.opacity = "0";        
+        controles.blocoPalavraLembrada.style.opacity = "1";
+        controles.blocoBotoesLista.style.opacity = "1";
     } else {
         controles.botaoCancelar.textContent = "Limpar";
         habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas);
-        controles.painelInferiorEsquerdo.style.opacity = "0";
+        controles.blocoPalavraLembrada.style.opacity = "0";
+        controles.blocoBotoesLista.style.opacity = "0";
         controles.listaLembradas.selectedIndex = -1;
         marcarSelecaoNaListaSubstituta(controles);
         controles.listaSubstituta.ariaDisabled = "true";

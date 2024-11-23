@@ -47,7 +47,7 @@
                         <option value="20">20 palavras</option>
                     </select>
                 </div>
-
+                <!-- pals. seg min -->
                 <div>
                     <label>Tempo:</label>
                     <select id="seletor-tempo">
@@ -61,19 +61,22 @@
         </fieldset>
 
         <fieldset id="painel-inferior">
+
             <div id="painel-inferior-esquerdo">
-                <div>
+
+                <div id="bloco-palavra-lembrada">
                     <label for="palavra-lembrada">Digite aqui as palavras lembradas:</label>
                     <input type="text" id="palavra-lembrada" disabled>
                 </div>
 
-                <div>
+                <div id="bloco-botoes-lista">
                     <button type="button" id="botao-inserir" title="Inserir palavras na lista ao lado"
                         disabled>Inserir</button>
                     <button type="button" id="botao-remover-selecionadas" title="Remover palavras selecionadas na lista"
                         disabled>Remover</button>
                 </div>
 
+                <output id="output-acertos"></output>
             </div>
 
             <div id="painel-inferior-direito">
@@ -85,7 +88,7 @@
                 </div>
 
             </div>
-            <output id="output-acertos"></output>
+
         </fieldset>
     </form>
 

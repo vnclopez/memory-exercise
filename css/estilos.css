@@ -89,13 +89,13 @@ button {
     border-radius: 5px;
 }
 
-#botao-iniciar {
-    background-color: #2196F3;
-}
-
 button:hover:not(:disabled) {
     background-color: #059761;
     cursor: pointer;
+}
+
+#botao-iniciar {
+    background-color: #2196F3;
 }
 
 #botao-iniciar:hover {
@@ -109,8 +109,9 @@ button:disabled,
     border: 1px solid #2D37484F;
 }
 
-select:not(#lista-lembradas) {
+#painel-central select {
     height: 40px;
+    width: 100%;
     padding: 0 15px;
     font-size: 14px;
 }
@@ -139,11 +140,7 @@ select:not(#lista-lembradas) {
     font-weight: bold;
 }
 
-#lista-lembradas {
-    width: 150px;
-    overflow-y: auto;
-}
-
+/* ==================================================PAINEL INFERIOR======================================== */
 #painel-inferior {
     width: 450px;
     min-height: 184px;
@@ -153,27 +150,32 @@ select:not(#lista-lembradas) {
     background-color: #fff;
     opacity: 0;
     transition: opacity 1s;
-    position: relative;
-    gap: 15px;
+    gap: 10px;
 }
 
 #painel-inferior-esquerdo {
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: opacity 1s;    
+    position: relative;
 }
 
-#painel-inferior-esquerdo div:first-child {
+#bloco-palavra-lembrada,
+#bloco-botoes-lista {
     display: flex;
     flex-direction: column;
+    transition: opacity 1s;
 }
 
-#painel-inferior-esquerdo div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
+#bloco-botoes-lista {
     align-items: flex-end;
     gap: 25px;
+}
+
+#painel-inferior label {
+    margin-bottom: 5px;
+    text-align: center;
 }
 
 #palavra-lembrada {
@@ -188,19 +190,26 @@ select:not(#lista-lembradas) {
     font-variant: small-caps;
     transition: opacity 2s;
     position: absolute;
-    top: 65px;
-    left: 30px;
+    top: 55px;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
 }
 
 #painel-inferior-direito div:first-child {
     position: relative;
 }
 
+#lista-lembradas {
+    width: 155px;    
+    overflow-y: auto;
+}
+
 #lista-substituta {
     visibility: hidden;
     height: 164px;
     border: 1px solid #999;
-    width: 150px;
+    width: 155px;
     overflow-y: auto;
     position: absolute;
     top: 0px;
@@ -210,7 +219,7 @@ select:not(#lista-lembradas) {
     text-wrap: nowrap;
 }
 
-#lista-substituta output {    
+#lista-substituta output {
     line-height: 1.24em;
 }
 
@@ -222,103 +231,44 @@ select:not(#lista-lembradas) {
     border: 1px solid #777;
 }
 
-#painel-inferior label {
-    margin-bottom: 5px;
-}
-
 /*===============================================MEDIA QUERIES=====================================*/
-
-@media (max-width: 353px) {
-    #output-acertos {
-        font-size: 16px;
-        left: 15px;
-        width: 50%;
-    }
-}
-
-@media (min-width: 354px) and (max-width: 384px) {
-    #output-acertos {
-        font-size: 16px;
-        left: 10px;
-        width: 55%;
-    }
-}
-
-@media (min-width: 354px) and (max-width: 483px) {}
-
 @media (max-width: 384px) {
-    #painel-central label {
-        font-size: 11px;
-    }
 
-    select:not(#lista-lembradas) {
-        font-size: 11px;
-        width: 85px;
+    #painel-central select {
         padding-left: 1px;
         padding-right: 0;
     }
 
-    #painel-inferior label {
-        font-size: 12px;
-        text-align: center;
-    }
-
-    #painel-inferior-esquerdo div:nth-child(2) {
-        gap: 20px;
+    #painel-inferior,
+    #painel-central {
+        padding: 10px;
     }
 }
-
 
 @media (min-width: 385px) and (max-width: 442px) {
-    select:not(#lista-lembradas) {
-        width: 100px;
-        padding-left: 2px;
-        padding-right: 0;
-    }
-
-    #output-acertos {
-        font-size: 16px;
-        left: 10px;
-        width: 55%;
-    }
-
-    #painel-inferior label {
-        text-align: center;
-    }
-
-    #painel-inferior-esquerdo div:nth-child(2) {
-        gap: 20px;
+    #painel-central select {
+        padding: 0 2px;
     }
 }
 
-
-@media (min-width: 385px) and (max-width: 483px) {
-
-    select:not(#lista-lembradas) {
-        font-size: 13px;
+@media (max-width: 442px) {
+    #output-acertos {
+        font-size: 16px;
     }
 
-    #painel-central label {
-        font-size: 13px;
+    #bloco-botoes-lista {
+        gap: 20px;
     }
 
     #painel-inferior label {
-        font-size: 12px;
-    }
-
-    #painel-inferior-esquerdo {
-        width: 60%;
+        font-size: 13px;
     }
 }
 
 @media (min-width: 443px) and (max-width: 483px) {
-    #painel-inferior-esquerdo {
-        width: 60%;
-    }
 
     #output-acertos {
         font-size: 17px;
-        left: 20px;
     }
 
     #painel-inferior label {
@@ -334,6 +284,11 @@ select:not(#lista-lembradas) {
         width: 98%;
     }
 
+    #painel-central select,
+    #painel-central label {
+        font-size: 13px;
+    }
+
     #lista-lembradas,
     #lista-substituta {
         width: 33vw;
@@ -346,5 +301,4 @@ select:not(#lista-lembradas) {
     #painel-inferior button {
         height: 35px;
     }
-
 }
