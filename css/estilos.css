@@ -11,6 +11,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     background-color: #f4f4f6;
+    user-select: none;
 }
 
 .container {
@@ -50,6 +51,7 @@ fieldset {
     border-radius: 5px;
 }
 
+/* ==================================================PAINEL PALAVRAS======================================== */
 #painel-palavras {
     background-color: #fff;
     height: 280px;
@@ -78,6 +80,40 @@ fieldset {
     transition: opacity 1s;
 }
 
+/* ==================================================PAINEL CENTRAL======================================== */
+
+#painel-central {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 15px;
+    background-color: #fff;
+}
+
+#painel-central div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+#painel-central div:first-child {
+    justify-content: space-between;
+}
+
+#painel-central select {
+    height: 40px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+#output-tempo {
+    font-weight: bold;
+}
+
+/* ==================================================BOTÕES======================================== */
 button {
     height: 40px;
     width: 85px;
@@ -109,35 +145,9 @@ button:disabled,
     border: 1px solid #2D37484F;
 }
 
-#painel-central select {
-    height: 40px;
-    width: 100%;
-    padding: 0 15px;
-    font-size: 14px;
-}
-
-#painel-central {
-    width: 450px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 10px 15px;
-    background-color: #fff;
-}
-
-#painel-central div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-}
-
-#painel-central div:first-child {
-    justify-content: space-between;
-}
-
-#output-tempo {
-    font-weight: bold;
+#botao-inserir,
+#botao-remover-selecionadas {
+    display: none;
 }
 
 /* ==================================================PAINEL INFERIOR======================================== */
@@ -201,7 +211,7 @@ button:disabled,
 }
 
 #lista-lembradas {
-    width: 155px;    
+    width: 155px;
     overflow-y: auto;
 }
 
