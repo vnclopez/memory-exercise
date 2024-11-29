@@ -26,8 +26,8 @@ window.onload = () => {
         escolhidas: null
     };
 
-    controles.botaoIniciar.onclick = () => realizarExibicaoPalavras(controles, auxiliar);
-    controles.botaoCancelar.onclick = () => limparPainel(controles, auxiliar);
+    controles.botaoIniciar.onclick = () => executarBotaoIniciar(controles, auxiliar);
+    controles.botaoCancelar.onclick = () => executarBotaoCancelar(controles, auxiliar);
     controles.seletorTempo.oninput = () => selecionarTempo(controles);
     controles.botaoInserir.onclick = () => inserirPalavra(controles);
     controles.palavraLembrada.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
@@ -39,33 +39,39 @@ window.onload = () => {
     controles.painelInferior.style.opacity = "0";
     controles.palavraLembrada.value = "";
     selecionarTempo(controles);
-};
 
-function realizarExibicaoPalavras(controles, auxiliar) {
+    if (islistaLembradasNaoMultilinha(controles)) {
+        controles.listaSubstituta.style.visibility = "visible";
+        controles.listaLembradas.style.visibility = "hidden";
+        controles.listaSubstituta.ariaDisabled = "true";
+    }
+
+};//fim de onload
+
+function executarBotaoIniciar(controles, auxiliar) {
     habilitarElementos(true, controles.botaoCancelar);
-    habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade, controles.botaoRemoverSelecionadas);
+    habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
 
     if (controles.botaoIniciar.textContent === "Iniciar") {
-        auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
-        auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
-        gerarElementosDeExibicaoPalavras(controles, auxiliar);
-        controles.mensagemInicial.style.opacity = "0";        
-        controles.blocoPalavraLembrada.style.opacity = "1";
-        controles.blocoBotoesLista.style.opacity = "1";
+        iniciarExercicio(controles, auxiliar);
     } else {
-        controles.botaoCancelar.textContent = "Limpar";
-        habilitarElementos(false, controles.palavraLembrada, controles.botaoInserir, controles.listaLembradas);
-        controles.blocoPalavraLembrada.style.opacity = "0";
-        controles.blocoBotoesLista.style.opacity = "0";
-        controles.listaLembradas.selectedIndex = -1;
-        marcarSelecaoNaListaSubstituta(controles);
-        controles.listaSubstituta.ariaDisabled = "true";
-        marcarPalavrasLembradas(controles);
+        prepararControlesParaConferir(controles);
     }
-    exibirPalavras(true, controles);
-}
 
-function gerarElementosDeExibicaoPalavras(controles, auxiliar) {
+    exibirPalavras(true, controles);
+
+}// fim de executarBotaoIniciar
+
+function iniciarExercicio(controles, auxiliar) {
+    auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
+    auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
+    preencherPainelPalavras(controles, auxiliar);
+    controles.mensagemInicial.style.opacity = "0";
+    controles.blocoPalavraLembrada.style.opacity = "1";
+    controles.blocoBotoesLista.style.opacity = "1";
+}// fim de iniciarExercicio
+
+function preencherPainelPalavras(controles, auxiliar) {
     const escolhidas = auxiliar.escolhidas;
     let painelPalavrasEsquerdo = controles.painelPalavrasEsquerdo;
     let painelPalavrasDireito = controles.painelPalavrasDireito;
@@ -82,7 +88,25 @@ function gerarElementosDeExibicaoPalavras(controles, auxiliar) {
         else
             painelPalavrasDireito.appendChild(newOutput);
     }
-}
+}// fim de preencherPainelPalavras
+
+function prepararControlesParaConferir(controles) {
+    controles.botaoCancelar.textContent = "Limpar";
+    habilitarElementos(false, controles.palavraLembrada, controles.listaLembradas);
+    controles.blocoPalavraLembrada.style.opacity = "0";
+    controles.blocoBotoesLista.style.opacity = "0";
+    controles.listaLembradas.selectedIndex = -1;
+    marcarSelecaoNaListaSubstituta(controles);
+    controles.listaSubstituta.ariaDisabled = "true";
+    marcarPalavrasLembradas(controles);
+
+    window.setTimeout(() => {
+        controles.botaoInserir.style.display = "none";
+        controles.botaoRemoverSelecionadas.style.display = "none";
+        controles.palavraLembrada.value = "";
+    }, 1000);
+
+}// fim de prepararControlesParaConferir
 
 function exibirPalavras(visivel, controles) {
     const divs = [controles.painelPalavrasEsquerdo, controles.painelPalavrasDireito];
@@ -90,9 +114,9 @@ function exibirPalavras(visivel, controles) {
     for (let div of divs) {
         div.style.opacity = (visivel) ? "1" : "0";
     }
-}
+}// fim de exibirPalavras
 
-function limparPainel(controles, auxiliar) {
+function executarBotaoCancelar(controles, auxiliar) {
     exibirPalavras(false, controles);
     habilitarElementos(false, controles.botaoCancelar);
     controles.botaoIniciar.textContent = "Iniciar";
@@ -103,15 +127,21 @@ function limparPainel(controles, auxiliar) {
     if (controles.botaoCancelar.textContent === "Limpar") {
         controles.botaoCancelar.textContent = "Cancelar";
         controles.painelInferior.style.opacity = "0";
+
+        window.setTimeout(() => {
+            controles.outputAcertos.textContent = "";
+            limparLista(controles.listaSubstituta);
+        }, 1000);
     }
 
     window.clearInterval(auxiliar.timer);
     selecionarTempo(controles);
-}
+
+}// fim de executarBotaoCancelar
 
 function selecionarTempo(controles) {
     controles.outputTempo.textContent = controles.seletorTempo.value;
-}
+}// fim de selecionarTempo
 
 function marcarTempo(controles, auxiliar) {
     let texto = controles.outputTempo.textContent;
@@ -124,35 +154,37 @@ function marcarTempo(controles, auxiliar) {
     }
 
     if (controles.outputTempo.textContent === "00:00") {
-        window.clearInterval(auxiliar.timer);
-        habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.palavraLembrada);
-        habilitarElementos(false, controles.botaoCancelar);
-        exibirPalavras(false, controles);
-        controles.botaoIniciar.textContent = "Conferir";
-        controles.painelInferior.style.opacity = "1";
-        controles.outputTempo.style.color = "black";
-        controles.palavraLembrada.value = "";
-        controles.outputAcertos.textContent = "";
-        controles.outputAcertos.style.opacity = "0";
-        limparLista(controles.listaLembradas);
-
-        if (navigator.maxTouchPoints === 0)
-            controles.palavraLembrada.focus();
-
-        if (controles.listaLembradas.offsetHeight < 50) {
-            controles.listaSubstituta.style.visibility = "visible";
-            controles.listaLembradas.style.visibility = "hidden";
-            controles.listaSubstituta.ariaDisabled = "true";
-            limparLista(controles.listaSubstituta);
-        }
+        configurarControlesAposTimerZerado(controles, auxiliar);
     }
-}
+}// fim de marcarTempo
+
+function configurarControlesAposTimerZerado(controles, auxiliar) {
+    window.clearInterval(auxiliar.timer);
+    habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.palavraLembrada);
+    habilitarElementos(false, controles.botaoCancelar, controles.botaoRemoverSelecionadas);
+    exibirPalavras(false, controles);
+    controles.botaoIniciar.textContent = "Conferir";
+    controles.botaoInserir.style.display = "inline";
+    controles.botaoRemoverSelecionadas.style.display = "inline";
+    controles.painelInferior.style.opacity = "1";
+    controles.outputTempo.style.color = "black";
+    controles.outputAcertos.style.opacity = "0";
+    limparLista(controles.listaLembradas);
+
+    if (navigator.maxTouchPoints === 0)
+        controles.palavraLembrada.focus();
+
+}// fim de configurarControlesAposTimerZerado
+
+function islistaLembradasNaoMultilinha(controles) {
+    return controles.listaLembradas.offsetHeight < 50;
+}// fim de islistaLembradasNaoMultilinha
 
 function limparLista(lista) {
     while (lista.hasChildNodes()) {
         lista.removeChild(lista.firstChild);
     }
-}
+}// fim de limparLista
 
 function inserirPalavra(controles) {
     let palavra = controles.palavraLembrada.value;
@@ -160,6 +192,7 @@ function inserirPalavra(controles) {
     let quantidadeMaxima = Number(controles.seletorQuantidade.value);
 
     lista.selectedIndex = -1;
+    //marcarSelecaoNaListaSubstituta(controles); TESTAR
 
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
@@ -172,14 +205,15 @@ function inserirPalavra(controles) {
             habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
         }
 
-        if (controles.listaLembradas.offsetHeight < 50) {
+        if (islistaLembradasNaoMultilinha(controles)) {
             inserirPalavraNaListaSubstituta(controles, palavra)
             marcarSelecaoNaListaSubstituta(controles);
         }
     }
 
     controles.palavraLembrada.value = "";
-}
+
+}// fim de inserirPalavra
 
 function inserirPalavraNaListaSubstituta(controles, palavra) {
     controles.listaSubstituta.ariaDisabled = "false";
@@ -188,7 +222,8 @@ function inserirPalavraNaListaSubstituta(controles, palavra) {
     newOutput.textContent = palavra;
     controles.listaSubstituta.appendChild(newOutput);
     newOutput.scrollIntoView();
-}
+
+}// fim de inserirPalavraNaListaSubstituta
 
 function inserirPalavraComEnter(controles, evento) {
 
@@ -197,7 +232,7 @@ function inserirPalavraComEnter(controles, evento) {
 
         return false;
     }
-}
+}// fim de inserirPalavraComEnter
 
 function removerPalavrasSelecionadas(controles) {
     let lista = controles.listaLembradas;
@@ -219,13 +254,13 @@ function removerPalavrasSelecionadas(controles) {
         habilitarElementos(false, controles.botaoRemoverSelecionadas, controles.listaLembradas);
         controles.listaSubstituta.ariaDisabled = "true";
     }
-}
+}// fim de removerPalavrasSelecionadas
 
 function habilitarElementos(habilitar) {
     for (let i = 1; i < arguments.length; i++) {
         arguments[i].disabled = !habilitar;
     }
-}
+}// fim de habilitarElementos
 
 function marcarPalavrasLembradas(controles) {
     const lembradas = controles.listaLembradas.options;
@@ -254,20 +289,22 @@ function marcarPalavrasLembradas(controles) {
         }
     }
     exibirPorcentagemAcertos(controles, acertos, outputs.length);
-}
+
+}// fim de marcarPalavrasLembradas
 
 function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
     let porcentagem = (acertos * 100) / totalPalavras;
     controles.outputAcertos.innerText = `Lembrou ${acertos} de ${totalPalavras} palavras \n${porcentagem.toFixed(0)}% de acertos`;
     controles.outputAcertos.style.opacity = "1";
-}
+
+}// fim de exibirPorcentagemAcertos
 
 function acessarListaLembradas(controles) {
 
     if (controles.listaSubstituta.ariaDisabled === "false") {
         controles.listaLembradas.showPicker();
     }
-}
+}// fim de acessarListaLembradas
 
 function marcarSelecaoNaListaSubstituta(controles) {
     if (controles.listaSubstituta.ariaDisabled === "false") {
@@ -287,5 +324,4 @@ function marcarSelecaoNaListaSubstituta(controles) {
             }
         }
     }
-}
-
+}// fim de marcarSelecaoNaListaSubstituta
