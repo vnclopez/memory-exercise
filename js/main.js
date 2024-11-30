@@ -2,23 +2,23 @@ import escolhePalavras from './funcoesEscolhaPalavras.js';
 
 window.onload = () => {
     const controles = {
-        painelPalavrasEsquerdo: document.getElementById("painel-palavras-esquerdo"),
-        painelPalavrasDireito: document.getElementById("painel-palavras-direito"),
-        mensagemInicial: document.getElementById("mensagem-inicial"),
-        botaoIniciar: document.getElementById("botao-iniciar"),
-        botaoCancelar: document.getElementById("botao-cancelar"),
-        seletorTempo: document.getElementById("seletor-tempo"),
-        seletorQuantidade: document.getElementById("seletor-quantidade"),
-        outputTempo: document.getElementById("output-tempo"),
-        painelInferior: document.getElementById("painel-inferior"),
-        blocoInputPalavra: document.getElementById("bloco-input-palavra"),
-        blocoBotoesLista: document.getElementById("bloco-botoes-lista"),
-        inputPalavra: document.getElementById("input-palavra"),
-        botaoInserir: document.getElementById("botao-inserir"),
-        listaLembradas: document.getElementById("lista-lembradas"),
-        botaoRemoverSelecionadas: document.getElementById("botao-remover-selecionadas"),
-        outputAcertos: document.getElementById("output-acertos"),
-        listaSubstituta: document.getElementById("lista-substituta")
+        painelPalavrasEsquerdo: document.querySelector(".painel-palavras-esquerdo"),
+        painelPalavrasDireito: document.querySelector(".painel-palavras-direito"),
+        mensagemInicial: document.querySelector(".mensagem-inicial"),
+        botaoIniciar: document.querySelector(".botao-iniciar"),
+        botaoCancelar: document.querySelector(".botao-cancelar"),
+        seletorTempo: document.querySelector(".seletor-tempo"),
+        seletorQuantidade: document.querySelector(".seletor-quantidade"),
+        outputTempo: document.querySelector(".output-tempo"),
+        painelInferior: document.querySelector(".painel-inferior"),
+        blocoInputPalavra: document.querySelector(".bloco-input-palavra"),
+        blocoBotoesLista: document.querySelector(".bloco-botoes-lista"),
+        inputPalavra: document.querySelector(".input-palavra"),
+        botaoInserir: document.querySelector(".botao-inserir"),
+        listaLembradas: document.querySelector(".lista-lembradas"),
+        botaoRemoverSelecionadas: document.querySelector(".botao-remover-selecionadas"),
+        outputAcertos: document.querySelector(".output-acertos"),
+        listaSubstituta: document.querySelector(".lista-substituta")
     };
 
     const auxiliar = {

@@ -19,26 +19,26 @@
     </header>
 
     <form class="container">
-        <fieldset id="painel-palavras">
-            <h2 id="mensagem-inicial">
+        <fieldset class="painel-palavras">
+            <h2 class="mensagem-inicial">
                 Tente memorizar as palavras que serão exibidas neste painel por um tempo. Depois digite quais você
                 conseguir se lembrar.
             </h2>
-            <div id="painel-palavras-esquerdo"></div>
-            <div id="painel-palavras-direito"></div>
+            <div class="painel-palavras-esquerdo"></div>
+            <div class="painel-palavras-direito"></div>
         </fieldset>
 
-        <fieldset id="painel-central">
+        <fieldset class="painel-central">
             <div>
-                <button type="button" id="botao-iniciar">Iniciar</button>
-                <output id="output-tempo">02:00</output>
-                <button type="button" id="botao-cancelar" disabled>Cancelar</button>
+                <button type="button" class="botao-iniciar">Iniciar</button>
+                <output class="output-tempo">02:00</output>
+                <button type="button" class="botao-cancelar" disabled>Cancelar</button>
             </div>
 
             <div>
                 <div>
                     <label>Quantidade:</label>
-                    <select id="seletor-quantidade">
+                    <select class="seletor-quantidade">
                         <option value="10">10 palavras</option>
                         <option value="12">12 palavras</option>
                         <option value="14">14 palavras</option>
@@ -50,7 +50,7 @@
 
                 <div>
                     <label>Tempo:</label>
-                    <select id="seletor-tempo">
+                    <select class="seletor-tempo">
                         <option value="02:00">2 minutos</option>
                         <option value="01:00">1 minuto</option>
                         <option value="00:30">30 segundos</option>
@@ -60,31 +60,31 @@
             </div>
         </fieldset>
 
-        <fieldset id="painel-inferior">
+        <fieldset class="painel-inferior">
 
-            <div id="painel-inferior-esquerdo">
+            <div class="painel-inferior-esquerdo">
 
-                <div id="bloco-input-palavra">
+                <div class="bloco-input-palavra">
                     <label for="input-palavra">Digite aqui as palavras lembradas:</label>
-                    <input type="text" id="input-palavra" disabled>
+                    <input type="text" class="input-palavra" id="input-palavra" disabled>
                 </div>
 
-                <div id="bloco-botoes-lista">
-                    <button type="button" id="botao-inserir" title="Inserir palavras na lista ao lado"
+                <div class="bloco-botoes-lista">
+                    <button type="button" class="botao-inserir" title="Inserir palavras na lista ao lado"
                         disabled>Inserir</button>
-                    <button type="button" id="botao-remover-selecionadas" title="Remover palavras selecionadas na lista"
-                        disabled>Remover</button>
+                    <button type="button" class="botao-remover-selecionadas"
+                        title="Remover palavras selecionadas na lista" disabled>Remover</button>
                 </div>
 
-                <output id="output-acertos"></output>
+                <output class="output-acertos"></output>
             </div>
 
-            <div id="painel-inferior-direito">
+            <div class="painel-inferior-direito">
                 <div>
-                    <select id="lista-lembradas" multiple size="10" disabled></select>
-                    <!-- <select id="lista-lembradas" disabled></select> -->
+                    <select class="lista-lembradas" multiple size="10" disabled></select>
+                    <!-- <select class="lista-lembradas" disabled></select> -->
 
-                    <div id="lista-substituta" aria-disabled="true"></div>
+                    <div class="lista-substituta" aria-disabled="true"></div>
                 </div>
 
             </div>
