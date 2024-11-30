@@ -46,17 +46,20 @@ form {
 }
 
 fieldset {
-    box-shadow: 0 0 4px 0.5px gray;
+    box-shadow: 0 0 4px 0.5px #777;
     border: none;
     border-radius: 5px;
 }
 
-/* ==================================================PAINEL PALAVRAS======================================== */
-.painel-palavras {
+.painel {
     background-color: #fff;
-    height: 280px;
     width: 450px;
     display: flex;
+}
+
+/* ==================================================PAINEL PALAVRAS======================================== */
+.painel-palavras {
+    height: 280px;
     justify-content: space-around;
     align-items: center;
     position: relative;
@@ -66,6 +69,7 @@ fieldset {
     text-align: center;
     color: #04aa6d;
     font-size: 18px;
+    font-weight: bold;
     padding: 0 15px;
     position: absolute;
     transition: opacity 2s;
@@ -83,12 +87,9 @@ fieldset {
 /* ==================================================PAINEL CENTRAL======================================== */
 
 .painel-central {
-    width: 450px;
-    display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 10px 15px;
-    background-color: #fff;
 }
 
 .painel-central div {
@@ -96,10 +97,6 @@ fieldset {
     justify-content: space-between;
     align-items: center;
     gap: 5px;
-}
-
-.painel-central div:first-child {
-    justify-content: space-between;
 }
 
 .painel-central select {
@@ -152,12 +149,9 @@ button:disabled,
 
 /* ==================================================PAINEL INFERIOR======================================== */
 .painel-inferior {
-    width: 450px;
     min-height: 184px;
-    display: flex;
     justify-content: space-between;
     padding: 10px 15px;
-    background-color: #fff;
     opacity: 0;
     transition: opacity 1s;
     gap: 10px;
