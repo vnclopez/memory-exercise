@@ -171,7 +171,7 @@ button:disabled,
     position: relative;
 }
 
-#bloco-palavra-lembrada,
+#bloco-input-palavra,
 #bloco-botoes-lista {
     display: flex;
     flex-direction: column;
@@ -188,7 +188,7 @@ button:disabled,
     text-align: center;
 }
 
-#palavra-lembrada {
+#input-palavra {
     width: 100%;
 }
 

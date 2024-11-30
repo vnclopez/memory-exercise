@@ -11,9 +11,9 @@ window.onload = () => {
         seletorQuantidade: document.getElementById("seletor-quantidade"),
         outputTempo: document.getElementById("output-tempo"),
         painelInferior: document.getElementById("painel-inferior"),
-        blocoPalavraLembrada: document.getElementById("bloco-palavra-lembrada"),
+        blocoInputPalavra: document.getElementById("bloco-input-palavra"),
         blocoBotoesLista: document.getElementById("bloco-botoes-lista"),
-        palavraLembrada: document.getElementById("palavra-lembrada"),
+        inputPalavra: document.getElementById("input-palavra"),
         botaoInserir: document.getElementById("botao-inserir"),
         listaLembradas: document.getElementById("lista-lembradas"),
         botaoRemoverSelecionadas: document.getElementById("botao-remover-selecionadas"),
@@ -30,14 +30,14 @@ window.onload = () => {
     controles.botaoCancelar.onclick = () => executarBotaoCancelar(controles, auxiliar);
     controles.seletorTempo.oninput = () => selecionarTempo(controles);
     controles.botaoInserir.onclick = () => inserirPalavra(controles);
-    controles.palavraLembrada.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
+    controles.inputPalavra.onkeydown = (evento) => inserirPalavraComEnter(controles, evento);
     controles.botaoRemoverSelecionadas.onclick = () => removerPalavrasSelecionadas(controles);
     controles.listaSubstituta.onclick = () => acessarListaLembradas(controles);
     controles.listaLembradas.oninput = () => marcarSelecaoNaListaSubstituta(controles);
 
-    habilitarElementos(false, controles.botaoCancelar, controles.listaLembradas, controles.palavraLembrada);
+    habilitarElementos(false, controles.botaoCancelar, controles.listaLembradas, controles.inputPalavra);
     controles.painelInferior.style.opacity = "0";
-    controles.palavraLembrada.value = "";
+    controles.inputPalavra.value = "";
     selecionarTempo(controles);
 
     if (islistaLembradasNaoMultilinha(controles)) {
@@ -67,7 +67,7 @@ function iniciarExercicio(controles, auxiliar) {
     auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
     preencherPainelPalavras(controles, auxiliar);
     controles.mensagemInicial.style.opacity = "0";
-    controles.blocoPalavraLembrada.style.opacity = "1";
+    controles.blocoInputPalavra.style.opacity = "1";
     controles.blocoBotoesLista.style.opacity = "1";
 }// fim de iniciarExercicio
 
@@ -92,8 +92,8 @@ function preencherPainelPalavras(controles, auxiliar) {
 
 function prepararControlesParaConferir(controles) {
     controles.botaoCancelar.textContent = "Limpar";
-    habilitarElementos(false, controles.palavraLembrada, controles.listaLembradas);
-    controles.blocoPalavraLembrada.style.opacity = "0";
+    habilitarElementos(false, controles.inputPalavra, controles.listaLembradas);
+    controles.blocoInputPalavra.style.opacity = "0";
     controles.blocoBotoesLista.style.opacity = "0";
     controles.listaLembradas.selectedIndex = -1;
     marcarSelecaoNaListaSubstituta(controles);
@@ -103,7 +103,7 @@ function prepararControlesParaConferir(controles) {
     window.setTimeout(() => {
         controles.botaoInserir.style.display = "none";
         controles.botaoRemoverSelecionadas.style.display = "none";
-        controles.palavraLembrada.value = "";
+        controles.inputPalavra.value = "";
     }, 1000);
 
 }// fim de prepararControlesParaConferir
@@ -160,7 +160,7 @@ function marcarTempo(controles, auxiliar) {
 
 function configurarControlesAposTimerZerado(controles, auxiliar) {
     window.clearInterval(auxiliar.timer);
-    habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.palavraLembrada);
+    habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.inputPalavra);
     habilitarElementos(false, controles.botaoCancelar, controles.botaoRemoverSelecionadas);
     exibirPalavras(false, controles);
     controles.botaoIniciar.textContent = "Conferir";
@@ -172,7 +172,7 @@ function configurarControlesAposTimerZerado(controles, auxiliar) {
     limparLista(controles.listaLembradas);
 
     if (navigator.maxTouchPoints === 0)
-        controles.palavraLembrada.focus();
+        controles.inputPalavra.focus();
 
 }// fim de configurarControlesAposTimerZerado
 
@@ -187,12 +187,12 @@ function limparLista(lista) {
 }// fim de limparLista
 
 function inserirPalavra(controles) {
-    let palavra = controles.palavraLembrada.value;
+    let palavra = controles.inputPalavra.value;
     let lista = controles.listaLembradas;
     let quantidadeMaxima = Number(controles.seletorQuantidade.value);
 
     lista.selectedIndex = -1;
-    //marcarSelecaoNaListaSubstituta(controles); TESTAR
+    marcarSelecaoNaListaSubstituta(controles);
 
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
@@ -202,16 +202,15 @@ function inserirPalavra(controles) {
         habilitarElementos(true, lista, controles.botaoRemoverSelecionadas);
 
         if (lista.length === quantidadeMaxima) {
-            habilitarElementos(false, controles.botaoInserir, controles.palavraLembrada);
+            habilitarElementos(false, controles.botaoInserir, controles.inputPalavra);
         }
 
         if (islistaLembradasNaoMultilinha(controles)) {
-            inserirPalavraNaListaSubstituta(controles, palavra)
-            marcarSelecaoNaListaSubstituta(controles);
+            inserirPalavraNaListaSubstituta(controles, palavra);
         }
     }
 
-    controles.palavraLembrada.value = "";
+    controles.inputPalavra.value = "";
 
 }// fim de inserirPalavra
 
@@ -245,8 +244,8 @@ function removerPalavrasSelecionadas(controles) {
 
         lista.remove(lista.selectedIndex);
 
-        if (controles.palavraLembrada.disabled) {
-            habilitarElementos(true, controles.botaoInserir, controles.palavraLembrada);
+        if (controles.inputPalavra.disabled) {
+            habilitarElementos(true, controles.botaoInserir, controles.inputPalavra);
         }
     }
 
