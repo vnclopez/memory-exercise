@@ -14,11 +14,13 @@ body {
     user-select: none;
 }
 
+/*TESTAR REMOÇÃO
 .container {
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;
 }
+*/
 
 header {
     background-color: #04aa6d;
@@ -200,11 +202,12 @@ button:disabled,
     margin: 0 auto;
 }
 
-.painel-inferior-direito div:first-child {
+.painel-inferior-direito {
     position: relative;
 }
 
-.lista-lembradas {
+.lista-lembradas,
+.lista-substituta {
     width: 155px;
     overflow-y: auto;
 }
@@ -213,8 +216,6 @@ button:disabled,
     visibility: hidden;
     height: 164px;
     border: 1px solid #999;
-    width: 155px;
-    overflow-y: auto;
     position: absolute;
     top: 0px;
     display: flex;
@@ -239,8 +240,7 @@ button:disabled,
 @media (max-width: 384px) {
 
     .painel-central select {
-        padding-left: 1px;
-        padding-right: 0;
+        padding: 0 0 0 1px;
     }
 
     .painel-inferior,
