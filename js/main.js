@@ -1,5 +1,8 @@
 import escolhePalavras from './funcoesEscolhaPalavras.js';
 
+/** 
+ * 
+ */
 window.onload = () => {
     const controles = {
         painelPalavrasEsquerdo: document.querySelector(".painel-palavras-esquerdo"),
@@ -48,20 +51,36 @@ window.onload = () => {
 
 };//fim de onload
 
+/** 
+ * 
+ */
 function habilitarElementos(habilitar) {
     for (let i = 1; i < arguments.length; i++) {
         arguments[i].disabled = !habilitar;
     }
 }// fim de habilitarElementos
 
+/** 
+ * 
+ */
 function selecionarTempo(controles) {
     controles.outputTempo.textContent = controles.seletorTempo.value;
 }// fim de selecionarTempo
 
+/** 
+ * Função que informa se o select listaLembradas que foi definido como multiple não está sendo exibido no navegador no formato multilinha.
+ * Alguns navegadores mobile não exibem os selects multiple no formato multilinha como no desktop.
+ * Caso seja true, a lista substituta será exibida no lugar da listaLembradas. 
+ * Mas é apenas uma substituição visual para manter a aparência do select multiple igual a do desktop. 
+ * As funcionalidades de select ainda são da lista original.
+ */
 function islistaLembradasNaoMultilinha(controles) {
     return controles.listaLembradas.offsetHeight < 50;
 }// fim de islistaLembradasNaoMultilinha
 
+/** 
+ * 
+ */
 function executarBotaoIniciar(controles, auxiliar) {
     habilitarElementos(true, controles.botaoCancelar);
     habilitarElementos(false, controles.botaoIniciar, controles.seletorTempo, controles.seletorQuantidade);
@@ -76,6 +95,9 @@ function executarBotaoIniciar(controles, auxiliar) {
 
 }// fim de executarBotaoIniciar
 
+/** 
+ * 
+ */
 function iniciarExercicio(controles, auxiliar) {
     auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
     //auxiliar.timer = window.setInterval(marcarTempo, 1000, controles, auxiliar);
@@ -87,6 +109,9 @@ function iniciarExercicio(controles, auxiliar) {
 
 }// fim de iniciarExercicio
 
+/** 
+ * 
+ */
 function marcarTempo(controles, auxiliar) {
     let texto = controles.outputTempo.textContent;
     let tempo = new Date(`2024-10-10 12:${texto}`);
@@ -102,6 +127,9 @@ function marcarTempo(controles, auxiliar) {
     }
 }// fim de marcarTempo
 
+/** 
+ * 
+ */
 function setControlesAposTimerZerado(controles, auxiliar) {
     window.clearInterval(auxiliar.timer);
     habilitarElementos(true, controles.botaoIniciar, controles.botaoInserir, controles.inputPalavra);
@@ -120,6 +148,9 @@ function setControlesAposTimerZerado(controles, auxiliar) {
 
 }// fim de setControlesAposTimerZerado
 
+/** 
+ * 
+ */
 function preencherPainelPalavras(controles, auxiliar) {
     const escolhidas = auxiliar.escolhidas;
     let painelPalavrasEsquerdo = controles.painelPalavrasEsquerdo;
@@ -139,12 +170,18 @@ function preencherPainelPalavras(controles, auxiliar) {
     }
 }// fim de preencherPainelPalavras
 
+/** 
+ * 
+ */
 function limparLista(lista) {
     while (lista.hasChildNodes()) {
         lista.removeChild(lista.firstChild);
     }
 }// fim de limparLista
 
+/** 
+ * 
+ */
 function executarFuncaoConferir(controles) {
     controles.botaoCancelar.textContent = "Limpar";
     habilitarElementos(false, controles.inputPalavra, controles.listaLembradas);
@@ -163,6 +200,9 @@ function executarFuncaoConferir(controles) {
 
 }// fim de executarFuncaoConferir
 
+/** 
+ * 
+ */
 function exibirPalavras(visivel, controles) {
     const divs = [controles.painelPalavrasEsquerdo, controles.painelPalavrasDireito];
 
@@ -171,6 +211,9 @@ function exibirPalavras(visivel, controles) {
     }
 }// fim de exibirPalavras
 
+/** 
+ * 
+ */
 function marcarPalavrasLembradas(controles) {
     const lembradas = controles.listaLembradas.options;
     const outputsEsquerdo = controles.painelPalavrasEsquerdo.children;
@@ -201,6 +244,9 @@ function marcarPalavrasLembradas(controles) {
 
 }// fim de marcarPalavrasLembradas
 
+/** 
+ * 
+ */
 function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
     let porcentagem = (acertos * 100) / totalPalavras;
     controles.outputAcertos.innerText = `Lembrou ${acertos} de ${totalPalavras} palavras \n${porcentagem.toFixed(0)}% de acertos`;
@@ -208,6 +254,9 @@ function exibirPorcentagemAcertos(controles, acertos, totalPalavras) {
 
 }// fim de exibirPorcentagemAcertos
 
+/** 
+ * 
+ */
 function executarBotaoCancelar(controles, auxiliar) {
     exibirPalavras(false, controles);
     habilitarElementos(false, controles.botaoCancelar);
@@ -231,6 +280,9 @@ function executarBotaoCancelar(controles, auxiliar) {
 
 }// fim de executarBotaoCancelar
 
+/** 
+ * 
+ */
 function inserirPalavra(controles) {
     let palavra = controles.inputPalavra.value;
     let lista = controles.listaLembradas;
@@ -259,6 +311,9 @@ function inserirPalavra(controles) {
 
 }// fim de inserirPalavra
 
+/** 
+ * 
+ */
 function inserirPalavraComEnter(controles, evento) {
 
     if (evento.keyCode === 13) {
@@ -268,6 +323,9 @@ function inserirPalavraComEnter(controles, evento) {
     }
 }// fim de inserirPalavraComEnter
 
+/** 
+ * 
+ */
 function removerPalavrasSelecionadas(controles) {
     let lista = controles.listaLembradas;
     let tam = lista.selectedOptions.length;
@@ -290,6 +348,9 @@ function removerPalavrasSelecionadas(controles) {
     }
 }// fim de removerPalavrasSelecionadas
 
+/** 
+ * 
+ */
 function inserirPalavraNaListaSubstituta(controles, palavra) {
     controles.listaSubstituta.ariaDisabled = "false";
 
@@ -300,6 +361,9 @@ function inserirPalavraNaListaSubstituta(controles, palavra) {
 
 }// fim de inserirPalavraNaListaSubstituta
 
+/** 
+ * 
+ */
 function acessarListaLembradas(controles) {
 
     if (controles.listaSubstituta.ariaDisabled === "false") {
@@ -307,6 +371,9 @@ function acessarListaLembradas(controles) {
     }
 }// fim de acessarListaLembradas
 
+/** 
+ * 
+ */
 function selecionarNaListaSubstituta(controles) {
     if (controles.listaSubstituta.ariaDisabled === "false") {
         const lembradas = controles.listaLembradas.options;
