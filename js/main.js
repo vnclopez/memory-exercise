@@ -26,7 +26,8 @@ window.onload = () => {
 
     const auxiliar = {
         timer: null,
-        escolhidas: null
+        escolhidas: null,
+        tempo: new Date()
     };
 
     controles.botaoIniciar.onclick = () => executarBotaoIniciar(controles, auxiliar);
@@ -103,6 +104,7 @@ function iniciarExercicio(controles, auxiliar) {
     //auxiliar.timer = window.setInterval(marcarTempo, 1000, controles, auxiliar);
     auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
     preencherPainelPalavras(controles, auxiliar);
+
     controles.mensagemInicial.style.opacity = "0";
     controles.blocoInputPalavra.style.opacity = "1";
     controles.blocoBotoesLista.style.opacity = "1";
@@ -114,8 +116,9 @@ function iniciarExercicio(controles, auxiliar) {
  */
 function marcarTempo(controles, auxiliar) {
     let texto = controles.outputTempo.textContent;
-    let tempo = new Date(`2024-10-10 12:${texto}`);
-    tempo.setTime(tempo.getTime() - 1000);
+    let tempo = auxiliar.tempo;
+
+    tempo.setTime(Date.parse(`2024-01-01T12:${texto}`) - 1000);
     controles.outputTempo.textContent = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
     if (controles.outputTempo.textContent === "00:10") {
