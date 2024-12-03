@@ -70,8 +70,8 @@ function selecionarTempo(controles) {
 
 /** 
  * Função que informa se o select listaLembradas que foi definido como multiple não está sendo exibido no navegador no formato multilinha.
- * Alguns navegadores mobile não exibem os selects multiple no formato multilinha como no desktop.
- * Caso seja true, a lista substituta será exibida no lugar da listaLembradas. 
+ * Vários navegadores mobile não exibem os selects multiple no formato multilinha como no desktop.
+ * Caso retorne true, a lista substituta que é um div, será exibida no lugar da listaLembradas. 
  * Mas é apenas uma substituição visual para manter a aparência do select multiple igual a do desktop. 
  * As funcionalidades de select ainda são da lista original.
  */
@@ -118,7 +118,10 @@ function marcarTempo(controles, auxiliar) {
     let texto = controles.outputTempo.textContent;
     let tempo = auxiliar.tempo;
 
+    // A data e hora escolhidas são aleatórias, pois o que interessa aqui neste contexto são os minutos e os segundos. 
+    // O método parse precisa de uma data completa.
     tempo.setTime(Date.parse(`2024-01-01T12:${texto}`) - 1000);
+
     controles.outputTempo.textContent = tempo.toLocaleTimeString("pt-BR", { minute: '2-digit', second: '2-digit' });
 
     if (controles.outputTempo.textContent === "00:10") {
@@ -139,12 +142,12 @@ function setControlesAposTimerZerado(controles, auxiliar) {
     habilitarElementos(false, controles.botaoCancelar, controles.botaoRemoverSelecionadas);
     exibirPalavras(false, controles);
     controles.botaoIniciar.textContent = "Conferir";
+    controles.outputTempo.style.color = "black";
     controles.botaoInserir.style.display = "inline";
     controles.botaoRemoverSelecionadas.style.display = "inline";
     controles.painelInferior.style.opacity = "1";
-    controles.outputTempo.style.color = "black";
     controles.outputAcertos.style.opacity = "0";
-    limparLista(controles.listaLembradas);
+    //limparLista(controles.listaLembradas); Foi para executarBotaoCancelar - RETIRAR DEPOIS DOS TESTES
 
     if (navigator.maxTouchPoints === 0)
         controles.inputPalavra.focus();
@@ -191,10 +194,11 @@ function executarFuncaoConferir(controles) {
     controles.blocoInputPalavra.style.opacity = "0";
     controles.blocoBotoesLista.style.opacity = "0";
     controles.listaLembradas.selectedIndex = -1;
-    selecionarNaListaSubstituta(controles);
+    selecionarNaListaSubstituta(controles); // Desmarca a "seleção"(se houver) na lista substituta
     controles.listaSubstituta.ariaDisabled = "true";
     marcarPalavrasLembradas(controles);
 
+    // Para esperar o término das transitions de opacity
     window.setTimeout(() => {
         controles.botaoInserir.style.display = "none";
         controles.botaoRemoverSelecionadas.style.display = "none";
@@ -207,15 +211,12 @@ function executarFuncaoConferir(controles) {
  * 
  */
 function exibirPalavras(visivel, controles) {
-    const divs = [controles.painelPalavrasEsquerdo, controles.painelPalavrasDireito];
-
-    for (let div of divs) {
-        div.style.opacity = (visivel) ? "1" : "0";
-    }
+    controles.painelPalavrasEsquerdo.style.opacity = (visivel) ? "1" : "0";
+    controles.painelPalavrasDireito.style.opacity = (visivel) ? "1" : "0";
 }// fim de exibirPalavras
 
 /** 
- * 
+ * Passa as palavras corretamente lembradas para a cor verde e negrito no painel de palavras.
  */
 function marcarPalavrasLembradas(controles) {
     const lembradas = controles.listaLembradas.options;
@@ -272,7 +273,9 @@ function executarBotaoCancelar(controles, auxiliar) {
         controles.botaoCancelar.textContent = "Cancelar";
         controles.painelInferior.style.opacity = "0";
 
+        // Para esperar o término da transition de opacity do painelInferior
         window.setTimeout(() => {
+            limparLista(controles.listaLembradas);
             controles.outputAcertos.textContent = "";
             limparLista(controles.listaSubstituta);
         }, 1000);
@@ -292,7 +295,7 @@ function inserirPalavra(controles) {
     let quantidadeMaxima = Number(controles.seletorQuantidade.value);
 
     lista.selectedIndex = -1;
-    selecionarNaListaSubstituta(controles);
+    selecionarNaListaSubstituta(controles); // Desmarca a "seleção"(se houver) na lista substituta
 
     if (palavra.trim() !== "") {
         let newOption = document.createElement("option");
@@ -305,6 +308,7 @@ function inserirPalavra(controles) {
             habilitarElementos(false, controles.botaoInserir, controles.inputPalavra);
         }
 
+        // Se a lista substituta estiver sendo exibida, então a palavra deve ser inserida lá também
         if (islistaLembradasNaoMultilinha(controles)) {
             inserirPalavraNaListaSubstituta(controles, palavra);
         }
@@ -352,7 +356,7 @@ function removerPalavrasSelecionadas(controles) {
 }// fim de removerPalavrasSelecionadas
 
 /** 
- * 
+ *  Faz com que a lista substituta que é um div, simule o comportamento de inserção de itens de um select multiple.
  */
 function inserirPalavraNaListaSubstituta(controles, palavra) {
     controles.listaSubstituta.ariaDisabled = "false";
@@ -365,7 +369,8 @@ function inserirPalavraNaListaSubstituta(controles, palavra) {
 }// fim de inserirPalavraNaListaSubstituta
 
 /** 
- * 
+ *  Faz com que a lista substituta quando for clicada em um navegador mobile, 
+ *  se comporte como um select multiple, ou seja, mostre o dialog com opções selecionáveis da listaLembradas.
  */
 function acessarListaLembradas(controles) {
 
@@ -375,23 +380,30 @@ function acessarListaLembradas(controles) {
 }// fim de acessarListaLembradas
 
 /** 
- * 
+ *  Faz com que a lista substituta simule visualmente a seleção de itens como num select multiple,
+ *  pintando o background dos itens selecionados de azul com cor de fonte branca.
  */
 function selecionarNaListaSubstituta(controles) {
+    
     if (controles.listaSubstituta.ariaDisabled === "false") {
         const lembradas = controles.listaLembradas.options;
         const substitutaLembradas = controles.listaSubstituta.children;
 
         for (let i = 0; i < lembradas.length; i++) {
+
             if (lembradas[i].selected && substitutaLembradas[i].style.color !== "white") {
                 substitutaLembradas[i].style.backgroundColor = "#0078d7";
                 substitutaLembradas[i].style.color = "white";
                 substitutaLembradas[i].scrollIntoView();
             }
 
-            if (!lembradas[i].selected) {
+            if (!lembradas[i].selected && substitutaLembradas[i].style.color === "white") {
                 substitutaLembradas[i].style.backgroundColor = "white";
-                substitutaLembradas[i].style.color = (controles.listaLembradas.disabled) ? "#999" : "black";//REFATORAR
+                substitutaLembradas[i].style.color = "black";
+            }
+
+            if (controles.listaLembradas.disabled) {
+                substitutaLembradas[i].style.color = "#999";
             }
         }
     }
