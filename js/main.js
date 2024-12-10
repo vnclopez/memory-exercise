@@ -101,8 +101,7 @@ function executarBotaoIniciar(controles, auxiliar) {
  */
 function iniciarExercicio(controles, auxiliar) {
     auxiliar.escolhidas = escolhePalavras(Number(controles.seletorQuantidade.value));
-    //auxiliar.timer = window.setInterval(marcarTempo, 1000, controles, auxiliar);
-    auxiliar.timer = window.setInterval(marcarTempo, 100, controles, auxiliar);
+    auxiliar.timer = window.setInterval(marcarTempo, 1000, controles, auxiliar);    
     preencherPainelPalavras(controles, auxiliar);
 
     controles.mensagemInicial.style.opacity = "0";
@@ -146,8 +145,7 @@ function setControlesAposTimerZerado(controles, auxiliar) {
     controles.botaoInserir.style.display = "inline";
     controles.botaoRemoverSelecionadas.style.display = "inline";
     controles.painelInferior.style.opacity = "1";
-    controles.outputAcertos.style.opacity = "0";
-    //limparLista(controles.listaLembradas); Foi para executarBotaoCancelar - RETIRAR DEPOIS DOS TESTES
+    controles.outputAcertos.style.opacity = "0";    
 
     if (navigator.maxTouchPoints === 0)
         controles.inputPalavra.focus();

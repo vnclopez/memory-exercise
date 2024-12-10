@@ -14,14 +14,6 @@ body {
     user-select: none;
 }
 
-/*TESTAR REMOÇÃO
-.container {
-    width: 100%;
-    max-width: 1024px;
-    margin: 0 auto;
-}
-*/
-
 header {
     background-color: #04aa6d;
     padding: 15px 0;
